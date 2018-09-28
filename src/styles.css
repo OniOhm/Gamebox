@@ -12,3 +12,8 @@ body {
 .text_body {
     font-family: 'Open Sans', sans-serif;
 }
+
+.link_fix {
+    text-decoration: none;
+    color: #ffffff;
+}

@@ -1,22 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Routes,RouterModule } from '@angular/router';
-import { myRoutes } from '../routes'
+import { RouterModule } from '@angular/router';
+
 
 import { AppComponent } from './app.component';
-import { SplashComponent } from './splash/splash.component';
-import { LogSignComponent } from './log-sign/log-sign.component'
-
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SplashComponent,
-    LogSignComponent
+
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     RouterModule
   ],
   providers: [],
