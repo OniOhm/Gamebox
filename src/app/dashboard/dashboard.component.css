@@ -1,0 +1,130 @@
+.container_splash {
+    max-width: 80%;
+    min-width: 80%;
+    height: 40em;
+    margin: 0 auto;
+    background-image: url("/assets/Asset 4.svg");
+    box-shadow: 0px 5px 20px black;
+    display: flex;
+    flex-direction: column;
+}
+
+.container_content {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container_sidebar {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.container_calender {
+    width: 60%;
+    height: 90%;
+    background-color: #4F345A;
+    margin: 10px;
+}
+
+.nowPlaying {
+    width: 100%;
+    height: 20%;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+}
+
+.playing {
+    width: 98%;
+    height: 6em;
+    background-color: #4F345A;
+    align-self: center;
+}
+
+.nav-splash {
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 3em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 5px 10px black;
+    align-self: flex-start;
+    z-index: 7;
+}
+
+.nav_splash_left {
+    display: flex;
+    width: 20em;
+    height: 100%;
+    align-items: center;
+    background-color: white;
+}
+
+.nav_spash_right {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    width: 30em;
+    background-color: white;
+    justify-content: flex-end;
+}
+
+.nav_img {
+    width: 4em;
+    display: block;
+}
+
+.log_box {
+    background-color: #662D91;
+    width: 5em;
+    height: 50%;
+    margin-left: 5px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    color: #FFFFFF;
+}
+
+.name_box {
+    background-color: #29ABE2;
+    width: 5em;
+    height: 50%;
+    margin-left: 5px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    color: #FFFFFF;
+}
+
+.sidebar_btn {
+    width: 100%;
+    height: 4em;
+    background-color: #4F345A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Sansita';
+    color: #FFFFFF;
+    font-size: 18pt;
+    margin-top: 24px;
+}
+
+.nav {
+    text-decoration: none;
+    color: #000000;
+}
+
+.play {
+    margin-left: 25px;
+}

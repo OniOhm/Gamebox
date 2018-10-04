@@ -2,20 +2,28 @@
     <div class="container_content">
         <div class="container_signlog">
             <img src="../assets/Asset 12.svg" class="logo">
-            <p (click)="alert()">sign up | Login</p>
-            <div id="signup">
-                <form action="">
-                    <label for="">Username</label>
+            <p><span (click)="showLog()">Signup</span>|<span (click)="showLog()">Login</span></p>
+            <div *ngIf="login">
+                <form>
+                    <label>Username</label>
                     <input>
-                    <label for="">Password</label>
+                    <label>Password</label>
                     <input>
+                    <button>submit</button>
                 </form>
             </div>
-            <div id="Login">
-                <form action="">
-
+            <div *ngIf="Signup">
+                <form>
+                    <label>Username</label><br>
+                    <input>
+                    <label>Password</label><br>
+                    <input>
+                    <label>Retype Password</label><br>
+                    <input>
+                    <button>submit</button>
                 </form>
             </div>
+            <a routerLink='../Dashboard'>tas</a>
         </div>
         <img src="../assets/Asset 10.svg" class="asset_signlog">
     </div>
