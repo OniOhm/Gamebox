@@ -30,6 +30,9 @@
     height: 90%;
     background-color: #4F345A;
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nowPlaying {
@@ -127,4 +130,8 @@
 
 .play {
     margin-left: 25px;
+}
+
+.img_size {
+    width: 90%;
 }

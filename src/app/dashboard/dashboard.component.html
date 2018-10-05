@@ -16,17 +16,18 @@
     </div>
     <div class="container_content">
         <div class="container_sidebar">
-            <div class="sidebar_btn">
+            <div class="sidebar_btn" (click)="showEvent()">
                 <p>Create Event</p>
             </div>
-            <div class="sidebar_btn">
+            <div class="sidebar_btn" (click)="showGameslist()">
                 <p>My Games</p>
             </div>
-            <div class="sidebar_btn">
+            <div class="sidebar_btn" (click)="showAccount()">
                 <p>My Account</p>
             </div>
         </div>
         <div class="container_calender">
+            <img class="img_size" src="https://s24455.pcdn.co/wp-content/uploads/2016/05/simple-calendar-fullcalendar-google-calendar-pro-grid-view.png">
         </div>
     </div>
     <div class="nowPlaying">
@@ -34,3 +35,6 @@
         <div class="playing"></div>
     </div>
 </div>
+<app-gamelist *ngIf="viewGamelist" (gameChange)="hideGameslist()"></app-gamelist>
+<app-account *ngIf="viewAccount" (accountChange)="hideAccount()"></app-account>
+<app-calender-create *ngIf="viewCallCalender" (eventChange)="hideCallEvent()"></app-calender-create>
