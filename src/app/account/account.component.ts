@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {Form, FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-account',
