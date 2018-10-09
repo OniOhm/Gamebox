@@ -1,23 +1,39 @@
 <div class="overLay">
     <div id="container_content">
-        <p (click)="hideEvent()">X</p>
-        <div class="column_input">
-            <h1 class="text_main">Create Event</h1>
-            <form>
-                <label name="name">Name of event</label>
-                <input>
-                <label name="name">Name of event</label>
-                <input type="date">
-                <label name="name">Name of event</label>
-                <input>
-                <button>Create</button>
-            </form>
+        <div class="container_title">
+            <h1 class="text_main text_white">Create Event</h1>
+            <p (click)="hideEvent()" class="text_white">X</p>
         </div>
-        <div class="column_area">
-            <label class="text_main">Games</label>
-            <textarea rows="10"></textarea>
-            <label class="text_main">Info</label>
-            <textarea rows="10"></textarea>
+        <div class="event_context">
+            <div class="column_input text_body text_white">
+                <form>
+                    <div class="input_format">
+                        <label name="name">Name of event</label>
+                        <input>
+                    </div>
+                    <div class="input_format">
+                        <label name="name">Name of event</label>
+                        <input type="date">
+                    </div>
+                    <div class="input_format">
+                        <label name="name">Name of event</label>
+                        <input>
+                    </div>
+                    <button class="btn_align text_main text_white">Create</button>
+                </form>
+            </div>
+            <div class="column_area">
+                <form>
+                    <div class="input_format">
+                        <label class="text_main text_white label_big">Games</label>
+                        <textarea rows="10" cols="50"></textarea>
+                    </div>
+                    <div class="input_format">
+                        <label class="text_main text_white label_big">Info</label>
+                        <textarea rows="10" cols="50"></textarea>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

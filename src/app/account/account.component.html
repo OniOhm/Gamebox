@@ -12,18 +12,24 @@
             <div class="account_input">
                 <div class="container_password">
                     <h1 class="text_main text_white">change Password</h1>
-                    <form>
-                        <label for="old_pwd">Old password</label>
-                        <input>
-                        <label for="old_pwd">Old password</label>
-                        <input>
-                        <button>Submit</button>
-                    </form>
+                    <div class="input_password">
+                        <form>
+                            <div class="form-group">
+                                <label for="old_pwd" class="text_white text_body">Old password</label>
+                                <input name="old_pwd">
+                            </div>
+                            <div class="form-group">
+                                <label for="new_pwd" class="text_white text_body">New password</label>
+                                <input name="new_pwd">
+                            </div>
+                            <button class="btn_change text_main">Change</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="container_gameClear">
                     <h1 class="text_main text_white">Clear GamesList</h1>
-                    <p>This will completely empty your gamelist. You have been warned.</p>
-                    <button class="text_main">Purge!!</button>
+                    <p class="right_margin text_white text_body">This will completely empty your gamelist. You have been warned.</p>
+                    <button class="text_main btn_purge">Purge!!</button>
                 </div>
             </div>
         </div>

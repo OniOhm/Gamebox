@@ -20,11 +20,16 @@
 }
 
 .container_title {
-    width: 100%;
+    width: 95%;
     height: 5em;
     display: flex;
     justify-content: space-between;
     margin-left: 5px;
     margin-right: 5px;
     align-items: center;
+}
+
+.page_symbol {
+    font-size: 18pt;
+    color: #ffffff;
 }
