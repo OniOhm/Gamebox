@@ -33,3 +33,37 @@
     font-size: 18pt;
     color: #ffffff;
 }
+
+.add {
+    display: block;
+    width: 2em;
+}
+
+.container_games {
+    width: 100%;
+    overflow-y: scroll;
+    height: 39em;
+    ;
+}
+
+.game {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #662D91;
+    height: 6em;
+    margin: 10px;
+}
+
+.text_correct {
+    margin: 20px;
+}
+
+.game_title {
+    margin: 4px;
+}
+
+.game:hover {
+    background-color: #29ABE2;
+    transition: 0.7s;
+}

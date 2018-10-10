@@ -1,6 +1,6 @@
 .container_splash {
-    max-width: 80%;
-    min-width: 80%;
+    width: 80em;
+    /* min-width: 80%; */
     height: 40em;
     margin: 0 auto;
     background-image: url("/assets/Asset 4.svg");
