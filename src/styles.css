@@ -21,3 +21,13 @@ body {
 .text_white {
     color: #ffffff;
 }
+
+.img_close {
+    width: 2em;
+}
+
+.img_close:hover {
+    /* animation: pulse 5s infinite; */
+    transform: rotate(90deg);
+    transition: 0.6s;
+}
