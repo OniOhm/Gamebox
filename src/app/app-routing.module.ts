@@ -7,6 +7,7 @@ import { SplashComponent } from './splash/splash.component';
 import { LogSignComponent } from './log-sign/log-sign.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+
 const appRoutes: Routes=[
   {path:'Splash' , component: SplashComponent},
   {path:'LogSign' , component: LogSignComponent},
@@ -22,7 +23,8 @@ const appRoutes: Routes=[
   ],
   declarations: [
     SplashComponent,
-    LogSignComponent
+    LogSignComponent,
+    
   ]
 })
 export class AppRoutingModule { }

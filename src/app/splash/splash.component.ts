@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./splash.component.css']
 })
 export class SplashComponent implements OnInit {
+  
 
   constructor() { }
 
   ngOnInit() {
   }
-
+scrollTolFeature(){
+ var elmnt = document.getElementById("splash_feature_container");
+  elmnt.scrollIntoView();
+}
 }

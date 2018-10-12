@@ -1,5 +1,6 @@
 import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 
+
 @Component({
   selector: 'app-gamelist',
   templateUrl: './gamelist.component.html',
@@ -7,6 +8,7 @@ import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 })
 export class GamelistComponent implements OnInit {
 
+  showNewGame: boolean=false;
   @Output() gameChange = new EventEmitter;
   constructor() { }
 
@@ -15,4 +17,13 @@ export class GamelistComponent implements OnInit {
   gameListOff(){
     this.gameChange.emit();
   }
+  showGameList(){
+    if(this.showNewGame == true){
+      this.showNewGame = false;
+      console.log(this.showNewGame);
+    }else{
+      this.showNewGame = true;
+    }
+  }
+
 }

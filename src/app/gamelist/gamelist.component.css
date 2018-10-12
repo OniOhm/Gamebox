@@ -39,10 +39,15 @@
     width: 2em;
 }
 
+.add:hover {
+    width: 3em;
+    transition: 0.5s;
+}
+
 .container_games {
     width: 100%;
     overflow-y: scroll;
-    height: 39em;
+    height: 75%;
     ;
 }
 

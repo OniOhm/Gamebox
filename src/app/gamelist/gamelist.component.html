@@ -2,7 +2,7 @@
     <div id="container_content">
         <div class="container_title">
             <h1 class="text_main text_white"> GamesList</h1>
-            <img src="../assets/Asset 1.svg" class="add">
+            <img src="../assets/Asset 1.svg" class="add" (click)="showGameList()" alt="add game">
             <h2 class="text_white text_main">favorites</h2>
             <h2 class="text_white text_main">sortby</h2>
             <img src="../assets/Asset 3.svg" (click)="gameListOff()" alt="" class="img_close">
@@ -33,3 +33,4 @@
 
     </div>
 </div>
+<app-new-game *ngIf="showNewGame" (hideGame)="showGameList()"></app-new-game>
