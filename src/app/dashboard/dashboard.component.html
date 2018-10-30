@@ -7,10 +7,10 @@
         <div class="nav_spash_right">
 
             <div class="name_box">
-                <a class="text_body link_fix" routerLink="../LogSign">Boxy2110</a>
+                <p class="text_body link_fix">{{UserName}}</p>
             </div>
             <div class="log_box">
-                <a routerLink="../LogSign" class="text_body link_fix">Log-out</a>
+                <a (click)="logout()" class="text_body link_fix">Log-out</a>
             </div>
         </div>
     </div>

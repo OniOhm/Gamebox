@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,13 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  UserName: string;
   viewAccount: boolean = false;
   viewGamelist: boolean = false;
   viewCallCalender: boolean = false;
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+
   }
+  ngDoCheck(){
+    this.UserName = this.authService.userName;
+  }
+  // TODO: This isnt Amatuer hour
   showAccount(){
     this.viewAccount = true;
   }
@@ -32,5 +39,8 @@ export class DashboardComponent implements OnInit {
   }
   hideCallEvent(){
     this.viewCallCalender = false;
+  }
+  logout(){
+    this.authService.logout();
   }
 }

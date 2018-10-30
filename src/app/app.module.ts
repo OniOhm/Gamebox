@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 
 import { AppComponent } from './app.component';
@@ -10,7 +12,12 @@ import { CalenderCreateComponent } from './calender-create/calender-create.compo
 import { AccountComponent } from './account/account.component';
 import { GamelistComponent } from './gamelist/gamelist.component';
 
-import { NewGameComponent } from './new-game/new-game.component';
+
+import { AuthService } from './auth/auth.service';
+import { authGuard } from './auth/auth-gaurd.service';
+import { CookieService } from 'ngx-cookie-service';
+import { gameService } from './db/game.service';
+
 
 
 
@@ -21,15 +28,17 @@ import { NewGameComponent } from './new-game/new-game.component';
     CalenderCreateComponent,
     AccountComponent,
     GamelistComponent,
-    NewGameComponent
+   
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [AuthService, CookieService,authGuard,gameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

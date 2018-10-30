@@ -8,29 +8,44 @@
             <img src="../assets/Asset 3.svg" (click)="gameListOff()" alt="" class="img_close">
         </div>
         <div class="container_games">
-            <div class="game text_white">
-                <h1 class="text_main game_title">Test</h1>
-                <p class="text_body text_correct">This is some text data that is just here to test and see iff the formating is correct</p>
+            <div class="game text_white" (click)="onSelect(game)" *ngFor="let game of Games">
+                <h1 class="text_main game_title">{{game.GameName}}</h1>
+                <p class="text_body text_correct">{{game.GameDescript}}</p>
             </div>
-            <div class="game text_white">
-                <h1 class="text_main game_title">Test</h1>
-                <p class="text_body text_correct">This is some text data that is just here to test and see iff the formating is correct</p>
-            </div>
-            <div class="game text_white">
-                <h1 class="text_main game_title">Test</h1>
-                <p class="text_body text_correct">This is some text data that is just here to test and see iff the formating is correct</p>
-            </div>
-            <div class="game text_white">
-                <h1 class="text_main game_title">Test</h1>
-                <p class="text_body text_correct">This is some text data that is just here to test and see iff the formating is correct</p>
-            </div>
-            <div class="game text_white">
-                <h1 class="text_main game_title">Test</h1>
-                <p class="text_body text_correct">This is some text data that is just here to test and see iff the formating is correct</p>
-            </div>
-
         </div>
 
     </div>
 </div>
-<app-new-game *ngIf="showNewGame" (hideGame)="showGameList()"></app-new-game>
+<div class="container_overlay" *ngIf="showGameDetail">
+    <div class="container_game_overlay">
+        <p (click)="Detailcontrol()">X</p>
+        <h1 class="text_main">{{selectedGame.GameName}}</h1>
+        <p class="text_body">{{selectedGame.GameDescript}}</p>
+    </div>
+</div>
+
+<div *ngIf="showNewGame" (hideGame)="showGameList()">
+    <div class="container_overlay_newGame">
+        <div class="container_content_newGame">
+            <div class="container_title_newGame">
+                <h1 class="text_main text_white"> Add game</h1>
+                <img src="../assets/Asset 3.svg" (click)="showGameList()" alt="" class="img_close">
+            </div>
+            <div class="container_input">
+                <form (ngSubmit)="addNewGame(f)" #f="ngForm">
+                    <div class="form-group">
+                        <label for="gameName" class="text_body text_white">Name of Game</label>
+                        <input type="text" name="GameName" class="text_body" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="GameDescript" class="text_body text_white">Game Info</label>
+                        <textarea rows="15" name="GameDescript" ngModel></textarea>
+                    </div>
+                    <div class="container_btn">
+                        <button class="btn_align text_main text_white" type="submit">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

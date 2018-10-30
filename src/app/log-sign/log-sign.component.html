@@ -6,30 +6,30 @@
             </div>
             <p class="logSign text_body"><span (click)="showLog()">Signup</span>|<span (click)="showLog()">Login</span></p>
             <div *ngIf="login">
-                <form class="form-control">
-                    <label class="label_format text_body">Username</label>
-                    <input>
+                <form class="form-control" (ngSubmit)="LogSubmit(log)" #log="ngForm">
+                    <label class="label_format text_body">Email</label>
+                    <input name="email" type="email" required ngModel>
                     <label class="label_format text_body">Password</label>
-                    <input type="password">
+                    <input name="password" type="password" required ngModel>
                     <div class="container_btn">
-                        <button class="btn_align text_main">Login</button>
+                        <button class="btn_align text_main" type="submit">Login</button>
                     </div>
                 </form>
+                <div class="btn_google" (click)="googleLog()">Log in with google</div>
             </div>
             <div *ngIf="Signup">
-                <form class="form-control">
-                    <label class="label_format text_body">Username</label>
-                    <input>
+                <form class="form-control" (ngSubmit)="signSubmit(sign)" #sign="ngForm">
+                    <label class="label_format text_body">Email</label>
+                    <input name="email" required ngModel>
                     <label class="label_format text_body">Password</label>
-                    <input type="password">
+                    <input name="password" type="password" required ngModel>
                     <label class="label_format text_body">Retype Password</label>
-                    <input type="password">
+                    <input type="password" required>
                     <div class="container_btn">
-                        <button class="btn_align text_main">Sign-up</button>
+                        <button class="btn_align text_main" type="submit">Sign-up</button>
                     </div>
                 </form>
             </div>
-            <a routerLink='../Dashboard'>click this to progress...</a>
         </div>
         <img src="../assets/Asset 10.svg" class="asset_signlog">
     </div>
