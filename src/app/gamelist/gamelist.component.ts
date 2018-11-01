@@ -19,7 +19,9 @@ export class GamelistComponent implements OnInit {
   
   showNewGame: boolean=false;
   showGameDetail: boolean = false;
+ MainGames= [
 
+ ]
   Games = [
     
   ];
@@ -32,7 +34,7 @@ export class GamelistComponent implements OnInit {
     this.onGet();
   }
   gameListOff(){
-    this.gameService.storeGame(this.Games)
+    this.gameService.storeGame(this.MainGames)
     .subscribe(
       (response) => console.log(response),
       (error) => console.log(error)
@@ -67,12 +69,18 @@ export class GamelistComponent implements OnInit {
     }
 
     addNewGame(form: NgForm){
-      this.Games.push(
+      this.MainGames.push(
         {
           GameName: form.value.GameName,
           GameDescript: form.value.GameDescript,
           userId: this.AuthService.userName
         });
+        this.Games.push(
+          {
+            GameName: form.value.GameName,
+            GameDescript: form.value.GameDescript,
+            userId: this.AuthService.userName
+          });
       this.showGameList();
     }
       onGet(){
@@ -81,6 +89,7 @@ export class GamelistComponent implements OnInit {
           // outputs the object array and places it into the array
          (Games: any[]) => {
            this.Games = Games.filter(Game => Game.userId == this.AuthService.userName);
+           this.MainGames = Games;
            console.log(this.Games);
           },
           //  Gets the response and turns it into json data
@@ -89,7 +98,7 @@ export class GamelistComponent implements OnInit {
         );
         
       }
-    }
+  }
   
 
-}
+

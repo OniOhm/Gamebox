@@ -14,6 +14,7 @@ export class LogSignComponent implements OnInit {
   }
   login: boolean = true;
   Signup: boolean = false;
+  showOtherLogin: boolean =false;
   ngOnInit() {
   }
   alert(){
@@ -41,5 +42,12 @@ export class LogSignComponent implements OnInit {
   }
   googleLog(){
     this.authservice.logInWithGoogle();
+  }
+  showAlts(){
+    if(this.showOtherLogin){
+      this.showOtherLogin = false;
+    }else{
+      this.showOtherLogin = true;
+    }
   }
 }

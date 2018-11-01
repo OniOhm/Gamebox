@@ -28,11 +28,16 @@
 .container_calender {
     width: 60%;
     height: 90%;
-    background-color: #4F345A;
+    background-color: #FFFFFF;
     margin: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.inline_calender_controls {
+    display: inline;
 }
 
 .nowPlaying {

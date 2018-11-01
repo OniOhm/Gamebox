@@ -15,7 +15,7 @@
                         <button class="btn_align text_main" type="submit">Login</button>
                     </div>
                 </form>
-                <div class="btn_google" (click)="googleLog()">Log in with google</div>
+                <p (click)="showAlts()">Signin with alternatives</p>
             </div>
             <div *ngIf="Signup">
                 <form class="form-control" (ngSubmit)="signSubmit(sign)" #sign="ngForm">
@@ -29,6 +29,11 @@
                         <button class="btn_align text_main" type="submit">Sign-up</button>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div *ngIf="showOtherLogin" class="overlay">
+            <div class="container_alts">
+                <div class="btn_google" (click)="googleLog()">Log in with google</div>
             </div>
         </div>
         <img src="../assets/Asset 10.svg" class="asset_signlog">

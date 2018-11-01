@@ -27,7 +27,12 @@
             </div>
         </div>
         <div class="container_calender">
-            <img class="img_size" src="https://s24455.pcdn.co/wp-content/uploads/2016/05/simple-calendar-fullcalendar-google-calendar-pro-grid-view.png">
+            <div class="inline_calender_controls">
+                <button (click)="rerender()">Refresh</button>
+            </div>
+            <div *ngIf="calendarOptions">
+                <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)" (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
+            </div>
         </div>
     </div>
     <div class="nowPlaying">
