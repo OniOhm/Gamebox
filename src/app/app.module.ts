@@ -6,6 +6,9 @@ import { HttpModule } from '@angular/http';
 import { FullCalendarModule } from 'ng-fullcalendar';
 
 
+
+
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -39,7 +42,8 @@ import { calenderService } from './db/calender.service';
     RouterModule,
     FormsModule,
     HttpModule,
-    FullCalendarModule
+    FullCalendarModule,
+    
   ],
   providers: [AuthService, CookieService,authGuard,gameService,calenderService],
   bootstrap: [AppComponent]

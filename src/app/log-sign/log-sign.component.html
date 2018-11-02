@@ -1,10 +1,16 @@
 <div class="container_page">
     <div class="container_content">
+        <!-- <div class="nav-splash">
+            <div class="nav_splash_left">
+                <img src="../assets/Asset 11.svg" class="nav_img">
+                <h1 class="text_main padding">Gamebox</h1>
+            </div>
+        </div> -->
         <div class="container_signlog">
             <div class="container_img">
                 <img src="../assets/Asset 12.svg" class="logo">
             </div>
-            <p class="logSign text_body"><span (click)="showLog()">Signup</span>|<span (click)="showLog()">Login</span></p>
+            <p class="logSign text_body"><span (click)="showSign()" class="header_signup">Signup</span>|<span (click)="showLog()" class="header_login">Login</span></p>
             <div *ngIf="login">
                 <form class="form-control" (ngSubmit)="LogSubmit(log)" #log="ngForm">
                     <label class="label_format text_body">Email</label>
@@ -15,16 +21,18 @@
                         <button class="btn_align text_main" type="submit">Login</button>
                     </div>
                 </form>
-                <p (click)="showAlts()">Signin with alternatives</p>
+                <p (click)="showAlts()" class="Altsign_resize text_body">Signin with alternatives</p>
             </div>
             <div *ngIf="Signup">
-                <form class="form-control" (ngSubmit)="signSubmit(sign)" #sign="ngForm">
+                <form class="form-control-sign" (ngSubmit)="signSubmit(sign)" #sign="ngForm">
                     <label class="label_format text_body">Email</label>
                     <input name="email" required ngModel>
                     <label class="label_format text_body">Password</label>
-                    <input name="password" type="password" required ngModel>
+                    <input name="password" (change)="alert()" type="password" required [(ngModel)]="password">
+                    <p *ngIf="passWarn" class="passAlert text_body"> Password needs to be more than 6 characters</p>
                     <label class="label_format text_body">Retype Password</label>
-                    <input type="password" required>
+                    <input type="password" name="reType" required [(ngModel)]="reType">
+                    <p *ngIf="retypeWarn" class="passAlert text_body"> Password does not match</p>
                     <div class="container_btn">
                         <button class="btn_align text_main" type="submit">Sign-up</button>
                     </div>
@@ -33,7 +41,15 @@
         </div>
         <div *ngIf="showOtherLogin" class="overlay">
             <div class="container_alts">
-                <div class="btn_google" (click)="googleLog()">Log in with google</div>
+                <h1 class="text_main">Alternatives</h1>
+                <p class="text_body">Log in with one of these Services</p>
+                <div class="btn_Altlog" (click)="googleLog()"><i class="fab fa-google icon_adjust"></i>
+                    <p class="text_body">Log in with google</p>
+                </div>
+                <!-- <div class="btn_Altlog" (click)="githubLog()"><i class="fab fa-github-alt icon_adjust"></i>
+                    <p class="text_body">Log in with github</p>
+                </div> -->
+                <img src="../assets/Asset 3.svg" (click)="hideAlternatives()" alt="" class="img_close">
             </div>
         </div>
         <img src="../assets/Asset 10.svg" class="asset_signlog">

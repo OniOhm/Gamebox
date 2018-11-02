@@ -15,7 +15,9 @@ import { NgForm } from '@angular/forms';
 export class DashboardComponent implements OnInit {
   calendarOptions: OptionsInput;
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
-  
+  eventTitle: string;
+  eventDescription: string;
+  eventStart: string;
   UserName: string;
   viewAccount: boolean = false;
   viewGamelist: boolean = false;
@@ -58,24 +60,23 @@ EventTray = [
         right: 'month,agendaWeek,agendaDay,listMonth'
       },
       height: 380,
-      events: [
-        {
-          title  : 'event1',
-          start  : '2018-10-01',
-          'Description': 'Dummy'
-        }
-      ]
+      events: this.EventTray
       // ToDO: explore other data sources
     };
+    this.onGet();
+    
   }
   ngDoCheck(){
     this.UserName = this.authService.userName;
   }
 
 // Calender control
-eventClick(event: Event){
+eventClick(event: any){
   this.selectedEvent = event;
-  console.log(this.selectedEvent);
+  console.log(event);
+  this.eventTitle = event.event.title;
+  this.eventStart = event.event.start._i;
+  this.eventDescription = event.event.Description;
 }
 
 onSubmit(form: NgForm){
@@ -92,12 +93,15 @@ onSubmit(form: NgForm){
 }
 
 rerender(){ 
+  this.ucCalendar.fullCalendar('removeEvents');
   this.EventTray.forEach(el => {
     this.ucCalendar.fullCalendar('renderEvent', el); 
   });
   this.ucCalendar.fullCalendar('rerenderEvents');
 }
-
+goGet(){
+  this.onGet();
+}
 
 onGet(){
   this.calendarService.getEvents()

@@ -6,18 +6,18 @@
         </div>
         <div class="event_context">
             <div class="column_input text_body text_white">
-                <form>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
                     <div class="input_format">
-                        <label name="name">Name of event</label>
-                        <input>
+                        <label name="title">Name of event</label>
+                        <input name="title" type="text" ngModel>
                     </div>
                     <div class="input_format">
-                        <label name="name">Event date</label>
-                        <input type="date">
+                        <label name="start">Event date</label>
+                        <input type="date" name="start" ngModel>
                     </div>
                     <div class="input_format">
-                        <label name="name">Location of event</label>
-                        <input>
+                        <label name="description">Location of event</label>
+                        <input type="text" name="description" ngModel>
                     </div>
                     <button class="btn_align text_main text_white">Create</button>
                 </form>

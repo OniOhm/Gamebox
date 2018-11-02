@@ -33,7 +33,7 @@
 }
 
 .container_game_overlay {
-    width: 80%;
+    width: 50%;
     height: 30em;
     z-index: 12;
     background-color: #ffffff;
@@ -67,8 +67,7 @@
     height: 5em;
     display: flex;
     justify-content: space-between;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 0 auto;
     align-items: center;
 }
 
@@ -125,8 +124,9 @@
     height: 5em;
     display: flex;
     justify-content: space-between;
-    margin-left: 5px;
-    margin-right: 5px;
+    /* margin-left: 5px;
+    margin-right: 5px; */
+    margin: 0 auto;
     align-items: center;
 }
 

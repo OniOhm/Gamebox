@@ -29,6 +29,7 @@
         <div class="container_calender">
             <div class="inline_calender_controls">
                 <button (click)="rerender()">Refresh</button>
+                <button (click)="goGet()">Fetch</button>
             </div>
             <div *ngIf="calendarOptions">
                 <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)" (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
@@ -36,8 +37,11 @@
         </div>
     </div>
     <div class="nowPlaying">
-        <span class="text_body play">Now Playing</span>
-        <div class="playing"></div>
+        <div class="playing">
+            <p class="text_body EventTitle">Event title : {{eventTitle}}</p>
+            <p class="text_body EventDate">Event date : {{eventStart}}</p>
+            <p class="text_body EventDescript">Event description : {{eventDescription}}</p>
+        </div>
     </div>
 </div>
 <app-gamelist *ngIf="viewGamelist" (gameChange)="hideGameslist()"></app-gamelist>

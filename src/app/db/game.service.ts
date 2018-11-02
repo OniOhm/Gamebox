@@ -15,13 +15,13 @@ storeGame(games: any){
     // data.json tells firebase that we are using the data
     // return this.http.post('https://fatetools.firebaseio.com/data.json',Characters);
     // For firebase this allows for data to be overwritten 
-    return this.http.put('https://capstone-24a83.firebaseio.com/data.json?auth=' + token,games);
+    return this.http.put('https://capstone-24a83.firebaseio.com/games.json?auth=' + token,games);
 }
 // This method creates an observable object that will be used to get new data from the database
 getGames(){
     const token = this.AuthService.getToken();
     console.log(token);
-    return this.http.get('https://capstone-24a83.firebaseio.com/data.json?auth=' + token)
+    return this.http.get('https://capstone-24a83.firebaseio.com/games.json?auth=' + token)
     // The map operator will take the data and wrap it into an new observable
     .pipe(map(
         (response:Response) => {

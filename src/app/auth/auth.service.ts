@@ -40,13 +40,29 @@ export class AuthService{
         console.log('LogInUser Called');
     }
     logInWithGoogle(){
-        const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider).then((result) => {
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(googleProvider).then((result) => {
             
             firebase.auth().currentUser.getIdToken()
             .then(
                 (token: string) => this.token = token
             )
+            this.userName = result.user.email;
+            this.router.navigate(['/Dashboard']);
+            console.log(this.token);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+    logInWithGithub(){
+        const githubProvider = new firebase.auth.GithubAuthProvider();
+        firebase.auth().signInWithPopup(githubProvider).then((result) => {
+            
+            firebase.auth().currentUser.getIdToken()
+            .then(
+                (token: string) => this.token = token
+            )
+            console.log(result);
             this.userName = result.user.email;
             this.router.navigate(['/Dashboard']);
             console.log(this.token);

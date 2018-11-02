@@ -18,13 +18,15 @@
 </div>
 <div class="container_overlay" *ngIf="showGameDetail">
     <div class="container_game_overlay">
-        <p (click)="Detailcontrol()">X</p>
-        <h1 class="text_main">{{selectedGame.GameName}}</h1>
+        <div class="container_title">
+            <h1 class="text_main">{{selectedGame.GameName}}</h1>
+            <img src="../assets/Asset 3.svg" (click)="Detailcontrol()" alt="" class="img_close">
+        </div>
         <p class="text_body">{{selectedGame.GameDescript}}</p>
     </div>
 </div>
 
-<div *ngIf="showNewGame" (hideGame)="showGameList()">
+<div *ngIf="showNewGame" (hideGame)="showGameList()" class="text_body">
     <div class="container_overlay_newGame">
         <div class="container_content_newGame">
             <div class="container_title_newGame">
