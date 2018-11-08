@@ -7,6 +7,9 @@ import { Event } from '../db/Event';
 import * as $ from 'jquery';
 import { NgForm } from '@angular/forms';
 
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
+import { TouchSequence } from 'selenium-webdriver';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -22,7 +25,12 @@ export class DashboardComponent implements OnInit {
   viewAccount: boolean = false;
   viewGamelist: boolean = false;
   viewCallCalender: boolean = false;
-  constructor(private authService: AuthService,private calendarService:calenderService) { }
+
+
+  constructor(private authService: AuthService,private calendarService:calenderService,db: AngularFireDatabase) { 
+   
+  }
+  
   // Event holders
 selectedEvent: Event = {
   title: '',
@@ -60,11 +68,13 @@ EventTray = [
         right: 'month,agendaWeek,agendaDay,listMonth'
       },
       height: 380,
-      events: this.EventTray
+      events: [],
+      eventSources: [
+        
+      ]
       // ToDO: explore other data sources
     };
     this.onGet();
-    
   }
   ngDoCheck(){
     this.UserName = this.authService.userName;
@@ -99,9 +109,7 @@ rerender(){
   });
   this.ucCalendar.fullCalendar('rerenderEvents');
 }
-goGet(){
-  this.onGet();
-}
+
 
 onGet(){
   this.calendarService.getEvents()
@@ -117,29 +125,27 @@ onGet(){
   );
 }
 
-
-
-
-
-  // TODO: This isnt Amatuer hour
+// Child Component controls
   showAccount(){
-    this.viewAccount = true;
+    if(!this.viewAccount){
+      this.viewAccount = true;
+    }else{
+      this.viewAccount = false;
+    }
   }
   showGameslist(){
-    this.viewGamelist = true;
+    if(!this.viewGamelist){
+      this.viewGamelist = true;
+    }else{
+      this.viewGamelist = false;
+    }  
   }
   showEvent(){
-    this.viewCallCalender = true;
-  }
-
-  hideAccount(){
-    this.viewAccount = false;
-  }
-  hideGameslist(){
-    this.viewGamelist = false;
-  }
-  hideCallEvent(){
-    this.viewCallCalender = false;
+    if(!this.viewCallCalender){
+      this.viewCallCalender = true;
+    }else{
+      this.viewCallCalender = false;
+    }   
   }
   logout(){
     this.authService.logout();

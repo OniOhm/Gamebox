@@ -3,7 +3,9 @@ import { Game } from '../gameTemp';
 import { AuthService } from '../auth/auth.service';
 import { NgForm } from '@angular/forms';
 import { gameService } from '../db/game.service';
-
+import { AngularFireDatabase,AngularFireList } from '@angular/fire/database';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gamelist',
@@ -11,34 +13,31 @@ import { gameService } from '../db/game.service';
   styleUrls: ['./gamelist.component.css']
 })
 export class GamelistComponent implements OnInit {
-  selectedGame: Game = {
+  recieveGames: AngularFireList<any>;
+  snapGames: Observable<any[]>;
+  showNewGame: boolean=false;
+  showGameDetail: boolean = false;
+  gameDetailDetail: boolean = true;
+  gameDetailEdit: boolean = false; 
+  @Output() gameChange = new EventEmitter;
+  constructor(private AuthService: AuthService ,private gameService: gameService, private db: AngularFireDatabase){
+    this.recieveGames = db.list('games' , ref => ref.orderByChild('userId').equalTo(this.AuthService.userName));
+    this.snapGames = db.list('games' , ref => ref.orderByChild('userId').equalTo(this.AuthService.userName)).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
+   }
+   selectedGame: Game = {
     GameName: '',
     GameDescript: '',
     userId: this.AuthService.userName,
+    key: '',
   };
-  
-  showNewGame: boolean=false;
-  showGameDetail: boolean = false;
- MainGames= [
-
- ]
-  Games = [
-    
-  ];
-
- 
-  @Output() gameChange = new EventEmitter;
-  constructor(private AuthService: AuthService ,private gameService: gameService) { }
-
   ngOnInit() {
-    this.onGet();
+    console.log(this.recieveGames);
   }
   gameListOff(){
-    this.gameService.storeGame(this.MainGames)
-    .subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error)
-    );
     this.gameChange.emit();
   }
   showGameList(){
@@ -50,10 +49,6 @@ export class GamelistComponent implements OnInit {
     }
 
   }
-  addToList(newGame: Game){
-    // this.games.push(newGame);
-    console.log('hit');
-  }
   Detailcontrol(){
     if(this.showGameDetail == true){
       this.showGameDetail = false;
@@ -64,41 +59,45 @@ export class GamelistComponent implements OnInit {
     }
     onSelect(game: Game){
       this.selectedGame = game;
+      this.selectedGame.key = game.key;
       console.log(this.selectedGame);
       this.showGameDetail = true;
     }
+    detailChangeDetail(){
+      if(!this.gameDetailDetail){
+        this.gameDetailDetail = true;
+        this.gameDetailEdit = false;
+      }
+    }
+    detailChangeEdit(){
+      if(!this.gameDetailEdit){
+        this.gameDetailEdit = true;
+        this.gameDetailDetail = false;
+      }
+    }
 
     addNewGame(form: NgForm){
-      this.MainGames.push(
-        {
-          GameName: form.value.GameName,
-          GameDescript: form.value.GameDescript,
-          userId: this.AuthService.userName
-        });
-        this.Games.push(
-          {
-            GameName: form.value.GameName,
-            GameDescript: form.value.GameDescript,
-            userId: this.AuthService.userName
-          });
+      const ref = this.db.list('games');
+      ref.push({
+        GameName: form.value.GameName,
+        GameDescript: form.value.GameDescript,
+        userId: this.AuthService.userName
+      })
       this.showGameList();
     }
-      onGet(){
-        this.gameService.getGames()
-        .subscribe(
-          // outputs the object array and places it into the array
-         (Games: any[]) => {
-           this.Games = Games.filter(Game => Game.userId == this.AuthService.userName);
-           this.MainGames = Games;
-           console.log(this.Games);
-          },
-          //  Gets the response and turns it into json data
-          (error) => console.log(error),
-          
-        );
-        
-      }
+    editNewGame(form: NgForm) {
+      this.recieveGames.update(this.selectedGame.key,{
+        GameName: form.value.GameName,
+        GameDescript: form.value.GameDescript,
+        userId: this.AuthService.userName,
+      });
+      console.log(form);
+      this.Detailcontrol();
+    }
+    DeleteGame(key: string){
+    this.recieveGames.remove(key)
   }
   
+}
 
 

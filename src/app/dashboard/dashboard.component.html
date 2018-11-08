@@ -44,6 +44,6 @@
         </div>
     </div>
 </div>
-<app-gamelist *ngIf="viewGamelist" (gameChange)="hideGameslist()"></app-gamelist>
-<app-account *ngIf="viewAccount" (accountChange)="hideAccount()"></app-account>
-<app-calender-create *ngIf="viewCallCalender" (eventChange)="hideCallEvent()"></app-calender-create>
+<app-gamelist *ngIf="viewGamelist" (gameChange)="showGameslist()"></app-gamelist>
+<app-account *ngIf="viewAccount" (accountChange)="showAccount()"></app-account>
+<app-calender-create *ngIf="viewCallCalender" (eventChange)="showEvent()"></app-calender-create>

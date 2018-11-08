@@ -3,5 +3,6 @@ export class Game{
     public GameDescript: string;
     public userId: string;
     public Favorite?: boolean;
+    public key: string;
     
 }

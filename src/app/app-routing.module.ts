@@ -9,11 +9,13 @@ import { LogSignComponent } from './log-sign/log-sign.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { authGuard } from './auth/auth-gaurd.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { environment } from 'src/environments/environment';
 
 // canActivate: [authGuard]
 const appRoutes: Routes=[
   {path:'Splash' , component: SplashComponent },
   {path:'LogSign' , component: LogSignComponent},
+  // , canActivate: [authGuard]
   {path: 'Dashboard' , component: DashboardComponent},
   {path:'' , redirectTo:"Splash", pathMatch: 'full'},
   {path:'**' , redirectTo:"Splash",pathMatch: 'full'}
@@ -24,12 +26,13 @@ const appRoutes: Routes=[
     CommonModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   declarations: [
     SplashComponent,
     LogSignComponent,
+
     
-  ]
+  ],
 })
 export class AppRoutingModule { }

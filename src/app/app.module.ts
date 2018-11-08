@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FullCalendarModule } from 'ng-fullcalendar';
-
-
-
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database'
 
 
 import { AppComponent } from './app.component';
@@ -43,9 +43,11 @@ import { calenderService } from './db/calender.service';
     FormsModule,
     HttpModule,
     FullCalendarModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     
   ],
-  providers: [AuthService, CookieService,authGuard,gameService,calenderService],
+  providers: [AuthService, CookieService ,authGuard,gameService,calenderService,AngularFireDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,22 +7,38 @@
             <h2 class="text_white text_main">sortby</h2>
             <img src="../assets/Asset 3.svg" (click)="gameListOff()" alt="" class="img_close">
         </div>
+        <!-- GameList -->
         <div class="container_games">
-            <div class="game text_white" (click)="onSelect(game)" *ngFor="let game of Games">
+            <div class="game text_white" (click)="onSelect(game)" *ngFor="let game of snapGames | async">
                 <h1 class="text_main game_title">{{game.GameName}}</h1>
                 <p class="text_body text_correct">{{game.GameDescript}}</p>
+                <button class="text_body text_white DeleteGame" (click)="DeleteGame(game.key)">Delete</button>
             </div>
         </div>
 
     </div>
 </div>
+<!-- Game Detail -->
 <div class="container_overlay" *ngIf="showGameDetail">
     <div class="container_game_overlay">
         <div class="container_title">
             <h1 class="text_main">{{selectedGame.GameName}}</h1>
+            <h2 class="text_body detailStyle" (click)="detailChangeDetail()">Detail</h2>
+            <h2 class="text_body detailStyle" (click)="detailChangeEdit()">Edit</h2>
             <img src="../assets/Asset 3.svg" (click)="Detailcontrol()" alt="" class="img_close">
         </div>
-        <p class="text_body">{{selectedGame.GameDescript}}</p>
+        <div class="gameDetail" *ngIf="gameDetailDetail">
+            <p class="text_body">{{selectedGame.GameDescript}}</p>
+        </div>
+        <div class="gameEdit" *ngIf="gameDetailEdit">
+            <form (ngSubmit)="editNewGame(e)" #e="ngForm">
+                <label>Name of game</label>
+                <input type="text" name="GameName" [ngModel]="selectedGame.GameName">
+                <label for="GameDescript" class="text_body text_white">Game Info</label>
+                <textarea rows="15" name="GameDescript" [ngModel]="selectedGame.GameDescript"></textarea>
+                <button class="btn_align text_main text_white" type="submit">Edit</button>
+            </form>
+        </div>
     </div>
 </div>
 
