@@ -31,6 +31,12 @@ export class GamelistComponent implements OnInit {
    selectedGame: Game = {
     GameName: '',
     GameDescript: '',
+     additional: '',
+     date: '',
+     rules: '',
+     creator: '',
+     numOfPlay: '',
+     Favorite: null,
     userId: this.AuthService.userName,
     key: '',
   };
@@ -81,7 +87,13 @@ export class GamelistComponent implements OnInit {
       ref.push({
         GameName: form.value.GameName,
         GameDescript: form.value.GameDescript,
-        userId: this.AuthService.userName
+        userId: this.AuthService.userName,
+        additional: form.value.additional,
+        date: form.value.date,
+        rules: form.value.rules,
+        creator: form.value.creator,
+        numOfPlay: form.value.numOfPlay,
+        Favorite: null,
       })
       this.showGameList();
     }
@@ -90,6 +102,11 @@ export class GamelistComponent implements OnInit {
         GameName: form.value.GameName,
         GameDescript: form.value.GameDescript,
         userId: this.AuthService.userName,
+        additional: form.value.additional,
+        date: form.value.date,
+        rules: form.value.rules,
+        creator: form.value.creator,
+        numOfPlay: form.value.numOfPlay,
       });
       console.log(form);
       this.Detailcontrol();

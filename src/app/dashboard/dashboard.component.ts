@@ -7,9 +7,9 @@ import { Event } from '../db/Event';
 import * as $ from 'jquery';
 import { NgForm } from '@angular/forms';
 
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase,AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
-import { TouchSequence } from 'selenium-webdriver';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -25,10 +25,10 @@ export class DashboardComponent implements OnInit {
   viewAccount: boolean = false;
   viewGamelist: boolean = false;
   viewCallCalender: boolean = false;
-
+  masterEvents: AngularFireList<any>;
 
   constructor(private authService: AuthService,private calendarService:calenderService,db: AngularFireDatabase) { 
-   
+    // this.masterEvents = db.list('/events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName));
   }
   
   // Event holders
@@ -90,16 +90,17 @@ eventClick(event: any){
 }
 
 onSubmit(form: NgForm){
-  // this.EventSingle.push({    
-  //     title: form.value.title,
-  //     start: form.value.start,
-  //     Description: form.value.description
-  // });
+  this.EventTray.push({    
+      title: form.value.title,
+      start: form.value.start,
+      Description: form.value.description
+  });
 
-  // this.calendarService.storeOneEvent(this.EventSingle).subscribe(
-  //   (response) => console.log(response),
-  //   (error) => console.log(error)
-  // );
+  
+  this.calendarService.storeEvents(this.EventTray).subscribe(
+    (response) => console.log(response),
+    (error) => console.log(error)
+  );
 }
 
 rerender(){ 

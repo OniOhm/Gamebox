@@ -2,10 +2,11 @@
     margin: 0 auto;
     background-color: #662D91;
     width: 70em;
-    height: 36em;
+    height: 39em;
     box-shadow: 0px 5px 20px black;
-    display: flex;
+    display: grid;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
@@ -14,6 +15,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    overflow-y: hidden;
 }
 
 .container_signlog {
@@ -22,10 +24,11 @@
     background-color: #FFFFFF;
     margin: 20px;
     /* display: flex; */
+    box-shadow: 0px 0px 5px black;
 }
 
 .asset_signlog {
-    height: 100%;
+    width: 27em;
 }
 
 .logo {
@@ -149,12 +152,12 @@
 
 .nav-splash {
     background-color: #FFFFFF;
-    width: 100%;
+    width: 70em;
     height: 3em;
+    position: block;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    box-shadow: 0px 5px 10px black;
+    box-shadow: 0px 2px 3px black;
     align-self: flex-start;
     z-index: 7;
 }
@@ -180,4 +183,18 @@
 .passAlert {
     font-size: 10pt;
     color: red;
+}
+
+.nav_img {
+    width: 4em;
+    display: block;
+}
+
+.log_content {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-end;
+    width: 70em;
+    height: 100%;
+    justify-content: space-between;
 }
