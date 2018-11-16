@@ -12,7 +12,7 @@
                     <img src="../assets/Asset 12.svg" class="logo">
                 </div>
                 <p class="logSign text_body"><span (click)="showSign()" class="header_signup">Signup</span>|<span (click)="showLog()" class="header_login">Login</span></p>
-                <div *ngIf="login">
+                <div class="login" [@fadeInOut]="login ? 'fadeIn' : 'fadeOut'">
                     <form class="form-control" (ngSubmit)="LogSubmit(log)" #log="ngForm">
                         <label class="label_format text_body">Email</label>
                         <input name="email" type="email" required ngModel>
@@ -24,7 +24,7 @@
                     </form>
                     <p (click)="showAlts()" class="Altsign_resize text_body">Signin with alternatives</p>
                 </div>
-                <div *ngIf="Signup">
+                <div [@fadeInOut]="Signup ? 'fadeIn' : 'fadeOut'" class="signup">
                     <form class="form-control-sign" (ngSubmit)="signSubmit(sign)" #sign="ngForm">
                         <label class="label_format text_body">Email</label>
                         <input name="email" required ngModel>
@@ -40,7 +40,7 @@
                     </form>
                 </div>
             </div>
-            <div *ngIf="showOtherLogin" class="overlay">
+            <div class="overlay" [@fade]="showOtherLogin? 'fadeIn' : 'fadeOut'">
                 <div class="container_alts">
                     <h1 class="text_main">Alternatives</h1>
                     <p class="text_body">Log in with one of these Services</p>

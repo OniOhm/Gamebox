@@ -3,7 +3,7 @@
     background-color: #662D91;
     width: 70em;
     height: 39em;
-    box-shadow: 0px 5px 20px black;
+    box-shadow: 0px 0px 15px black;
     display: grid;
     align-items: center;
     flex-wrap: wrap;
@@ -16,6 +16,7 @@
     justify-content: center;
     height: 100vh;
     overflow-y: hidden;
+    background-image: url();
 }
 
 .container_signlog {
@@ -23,7 +24,8 @@
     width: 20em;
     background-color: #FFFFFF;
     margin: 20px;
-    /* display: flex; */
+    display: grid;
+    grid-template-rows: 9em 3em 15em;
     box-shadow: 0px 0px 5px black;
 }
 
@@ -65,6 +67,11 @@
     margin-top: 15px;
 }
 
+.btn_align:hover {
+    background-color: #29ABE2;
+    transition: 0.5s;
+}
+
 .container_btn {
     width: 100%;
     bottom: 0;
@@ -85,6 +92,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 16px;
+    z-index: 12;
 }
 
 .form-control-sign {
@@ -98,7 +106,16 @@
 .login {
     width: 100%;
     height: 59%;
-    background-color: #000000;
+    grid-row: 3;
+    z-index: 0;
+    display: block;
+}
+
+.signup {
+    grid-row: 3;
+    opacity: 0;
+    z-index: 0;
+    display: none;
 }
 
 .label_format {
@@ -108,7 +125,8 @@
 .btn_Altlog {
     max-width: 14em;
     height: 2em;
-    box-shadow: 0px 0px 10px #000000;
+    /* box-shadow: 0px 0px 3px #000000; */
+    border: solid 1px rgb(185, 185, 185);
     /* top: 5; */
     display: flex;
     justify-content: center;
@@ -118,7 +136,7 @@
 }
 
 .btn_Altlog:hover {
-    background-color: #662D91;
+    background-color: #29ABE2;
     transition: 0.5s;
     color: #F5F5F5;
 }
@@ -130,20 +148,20 @@
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 10;
+    z-index: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* opacity: .7; */
+    opacity: 0;
 }
 
 .container_alts {
     background-color: #F5F5F5;
     width: 20em;
-    height: 70%;
+    height: 20em;
     opacity: 1.0;
     text-align: center;
-    z-index: 11;
+    z-index: 20;
 }
 
 .icon_adjust {

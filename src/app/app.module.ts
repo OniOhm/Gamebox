@@ -6,7 +6,8 @@ import { HttpModule } from '@angular/http';
 import { FullCalendarModule } from 'ng-fullcalendar';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
-import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database'
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app.component';
@@ -43,6 +44,7 @@ import { calenderService } from './db/calender.service';
     FormsModule,
     HttpModule,
     FullCalendarModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     

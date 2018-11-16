@@ -3,5 +3,6 @@ export class Event{
     public start  : string
     public Description: string
     public userId? : string
+    public key? : string
  }
  

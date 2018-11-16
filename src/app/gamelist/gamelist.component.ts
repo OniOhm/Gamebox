@@ -6,11 +6,30 @@ import { gameService } from '../db/game.service';
 import { AngularFireDatabase,AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { trigger, transition, useAnimation, state, style, animate } from '@angular/animations';
+import { fadeinOut } from '../fadeinOut';
 
 @Component({
   selector: 'app-gamelist',
   templateUrl: './gamelist.component.html',
-  styleUrls: ['./gamelist.component.css']
+  styleUrls: ['./gamelist.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      state('fadeOut', style({
+        opacity: 0,
+        display: 'none',
+        zIndex: 0
+    })),
+    state('fadeIn', style({
+        opacity: 1,
+        display: 'block',
+        zIndex: 18
+    })),
+      transition('fadeOut <=> fadeIn',[
+        animate('0.3s')
+      ]),
+  ]),
+  ]
 })
 export class GamelistComponent implements OnInit {
   recieveGames: AngularFireList<any>;

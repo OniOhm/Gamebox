@@ -33,7 +33,7 @@
 }
 
 .container_game_overlay {
-    width: 50%;
+    width: 55%;
     height: 30em;
     z-index: 12;
     background-color: #ffffff;
@@ -94,26 +94,16 @@
 }
 
 .game {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     background-color: #662D91;
     display: grid;
-    grid-template-rows: 50% 50%;
-    grid-template-columns: 33% 33% 33%;
-    height: 6em;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 60% 40%;
+    height: 7em;
     margin: 10px;
-}
-
-.text_correct {
-    grid-row: 2;
-    grid-column: 1/2;
 }
 
 .game_title {
     margin: 4px;
-    grid-row: 1;
-    grid-column: 1/2;
 }
 
 .game:hover {
@@ -144,9 +134,10 @@
 
 .form-grid {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 46% 46%;
     grid-template-rows: repeat(5, 5em);
     gap: 9px;
+    margin-left: 3em;
 }
 
 .form-group {
@@ -156,7 +147,7 @@
 
 .container_btn {
     width: 100%;
-    height: 30%;
+    height: 30em;
     display: flex;
     justify-content: center;
     margin-top: 15px;
@@ -167,6 +158,8 @@
     background-color: #29ABE2;
     padding: 10px;
     font-size: 18pt;
+    width: 100%;
+    height: 2em;
 }
 
 .detailStyle:hover {
@@ -175,8 +168,12 @@
 }
 
 .gameDetail {
-    width: 100%;
+    width: 90%;
     height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 20% 20% 20%;
+    margin: auto;
 }
 
 .gameEdit {
@@ -184,18 +181,44 @@
     height: 100%;
 }
 
-.DeleteGame {
+.deleteGame {
     border-style: none;
-    background-color: rgb(201, 70, 70);
+    background-color: #29ABE2;
     color: #ffffff;
-    padding: 1em;
-    margin: 10px;
+    padding: 10px;
+    grid-column: 2;
+    grid-row: 2;
 }
 
-.DeleteGame:hover {
+.viewGame {
+    border-style: none;
+    background-color: #29ABE2;
+    color: #ffffff;
+    padding: 10px;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.viewGame:hover {
+    background-color: rgb(34, 143, 190);
+}
+
+.deleteGame:hover {
     background-color: rgb(189, 64, 64);
 }
 
 .text {
     text-align: right;
+}
+
+.gameControl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row: 1/2;
+    grid-column: 2;
+}
+
+.detail_label {
+    background-color: #662D91;
 }

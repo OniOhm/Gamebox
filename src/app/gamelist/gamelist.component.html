@@ -9,14 +9,13 @@
         </div>
         <!-- GameList -->
         <div class="container_games">
-            <div class="game text_white" (click)="onSelect(game)" *ngFor="let game of snapGames | async">
-                <div class="text">
-                    <h1 class="text_main game_title">{{game.GameName}}</h1>
-                    <p class="text_body text_correct">{{game.GameDescript}}</p>
-                </div>
-                <div class="gameControl">
-                    <button class="text_body text_white DeleteGame" (click)="DeleteGame(game.key)">Delete</button>
-                </div>
+            <div class="game text_white" *ngFor="let game of snapGames | async">
+                <h1 class="text_main game_title">{{game.GameName}}</h1>
+                <p class="text_body text_correct">{{game.GameDescript}}</p>
+                <!-- <div class="gameControl"> -->
+                <button class="text_body text_white viewGame" (click)="onSelect(game)">View</button>
+                <button class="text_body text_white deleteGame" (click)="DeleteGame(game.key)">Delete</button>
+                <!-- </div> -->
             </div>
         </div>
 
@@ -32,15 +31,64 @@
             <img src="../assets/Asset 3.svg" (click)="Detailcontrol()" alt="" class="img_close">
         </div>
         <div class="gameDetail" *ngIf="gameDetailDetail">
-            <p class="text_body">{{selectedGame.GameDescript}}</p>
+            <div>
+                <label for="GameDescript" class="text_main text_white detail_label">Game Info</label>
+                <p class="text_body">{{selectedGame.GameDescript}}</p>
+            </div>
+            <div>
+                <label for="additional" class="text_main text_white detail_label">Additonal notes</label>
+                <p class="text_body">{{selectedGame.additional}}</p>
+            </div>
+            <div>
+                <label for="date" class="text_main text_white detail_label">Date Added</label>
+                <p class="text_body">{{selectedGame.date}}</p>
+            </div>
+            <div>
+                <label for="rules" class="text_main text_white detail_label">Rules</label>
+                <p class="text_body">{{selectedGame.rules}}</p>
+            </div>
+            <div>
+                <label for="creator" class="text_main text_white detail_label">Created by</label>
+                <p class="text_body">{{selectedGame.creator}}</p>
+            </div>
+            <div>
+                <label for="numOfPlay" class="text_main">Number of players</label>
+                <p class="text_body">{{selectedGame.numOfPlay}} players</p>
+            </div>
         </div>
         <div class="gameEdit" *ngIf="gameDetailEdit">
-            <form (ngSubmit)="editNewGame(e)" #e="ngForm">
-                <label>Name of game</label>
-                <input type="text" name="GameName" [ngModel]="selectedGame.GameName">
-                <label for="GameDescript" class="text_body text_white">Game Info</label>
-                <textarea rows="15" name="GameDescript" [ngModel]="selectedGame.GameDescript"></textarea>
-                <button class="btn_align text_main text_white" type="submit">Edit</button>
+            <form (ngSubmit)="editNewGame(e)" #e="ngForm" class="form-grid">
+                <div class="form-group">
+                    <label for="GameName" class="text_body">Name of game</label>
+                    <input type="text" name="GameName" [ngModel]="selectedGame.GameName">
+                </div>
+                <div class="form-group">
+                    <label for="GameDescript" class="text_body">Game Info</label>
+                    <textarea rows="15" name="GameDescript" [ngModel]="selectedGame.GameDescript"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="additional" class="text_body">Additonal notes</label>
+                    <textarea rows="15" name="additional" class="additional" [ngModel]="selectedGame.additional"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="date" class="text_body">Date Added</label>
+                    <input type="date" name="date" class="date" [ngModel]="selectedGame.date">
+                </div>
+                <div class="form-group">
+                    <label for="rules" class="text_body">Rules</label>
+                    <textarea rows="15" name="rules" class="rules" [ngModel]="selectedGame.rules"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="creator" class="text_body">Created by</label>
+                    <input type="text" name="creator" class="creator" [ngModel]="selectedGame.creator">
+                </div>
+                <div class="form-group">
+                    <label for="numOfPlay" class="text_body">Number of players</label>
+                    <input type="text" name="numOfPlay" class="numOfPlay" [ngModel]="selectedGame.numOfPlay">
+                </div>
+                <div class="container_btn">
+                    <button class="btn_align text_main text_white" type="submit">Edit</button>
+                </div>
             </form>
         </div>
     </div>

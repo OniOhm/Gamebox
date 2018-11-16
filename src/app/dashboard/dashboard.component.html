@@ -29,7 +29,14 @@
         <div class="container_calender">
             <div class="inline_calender_controls">
                 <button (click)="rerender()">Refresh</button>
-                <button (click)="goGet()">Fetch</button>
+                <div class="calender-switch">
+                    <span class="text_body">private</span>
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider" (click)="pubPriv()"></span>
+                </label>
+                    <span class="text_body">public</span>
+                </div>
             </div>
             <div *ngIf="calendarOptions">
                 <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)" (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>

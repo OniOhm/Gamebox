@@ -4,6 +4,7 @@ import { CalendarComponent } from 'ng-fullcalendar';
 import { OptionsInput } from 'fullcalendar';
 import { calenderService } from '../db/calender.service';
 import { Event } from '../db/Event';
+import { map } from 'rxjs/operators';
 import * as $ from 'jquery';
 import { NgForm } from '@angular/forms';
 
@@ -22,39 +23,50 @@ export class DashboardComponent implements OnInit {
   eventDescription: string;
   eventStart: string;
   UserName: string;
+  editEvents: Observable<any[]>;
   viewAccount: boolean = false;
   viewGamelist: boolean = false;
   viewCallCalender: boolean = false;
   masterEvents: AngularFireList<any>;
-
-  constructor(private authService: AuthService,private calendarService:calenderService,db: AngularFireDatabase) { 
-    // this.masterEvents = db.list('/events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName));
+  pub: boolean = false;
+  priv: boolean = true;
+  constructor(private authService: AuthService,private calendarService:calenderService,private db: AngularFireDatabase) { 
+    this.masterEvents = db.list('/events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName));
+    
   }
   
   // Event holders
 selectedEvent: Event = {
   title: '',
   start: '',
-  'Description': '',
+  Description: '',
+  key: ' '
   }
 
-data: Event[] = [
+// data: Event[] = [
+//   {
+//     title  : 'event1',
+//     start  : '2018-10-01',
+//     'Description': 'Dummy'
+//   },
+//   {
+//     title  : 'event2',
+//     start  : '2018-10-01',
+//     'Description': 'Dummy'
+//   },
+// ];
+privateTray = [
   {
-    title  : 'event1',
+    title  : 'stuff',
     start  : '2018-10-01',
-    'Description': 'Dummy'
-  },
+    'Description': 'Things'
+  }
+]
+publicTray = [
   {
-    title  : 'event2',
+    title  : 'stuff',
     start  : '2018-10-01',
-    'Description': 'Dummy'
-  },
-];
-EventTray = [
-  {
-    title  : '',
-    start  : '',
-    'Description': ''
+    'Description': 'Things'
   }
 ]
 
@@ -68,7 +80,7 @@ EventTray = [
         right: 'month,agendaWeek,agendaDay,listMonth'
       },
       height: 380,
-      events: [],
+      events: this.privateTray,
       eventSources: [
         
       ]
@@ -78,6 +90,7 @@ EventTray = [
   }
   ngDoCheck(){
     this.UserName = this.authService.userName;
+    
   }
 
 // Calender control
@@ -87,25 +100,26 @@ eventClick(event: any){
   this.eventTitle = event.event.title;
   this.eventStart = event.event.start._i;
   this.eventDescription = event.event.Description;
+  console.log(this.selectedEvent.key);
 }
 
-onSubmit(form: NgForm){
-  this.EventTray.push({    
-      title: form.value.title,
-      start: form.value.start,
-      Description: form.value.description
-  });
+// onSubmit(form: NgForm){
+//   this.EventTray.push({    
+//       title: form.value.title,
+//       start: form.value.start,
+//       Description: form.value.description
+//   });
 
   
-  this.calendarService.storeEvents(this.EventTray).subscribe(
-    (response) => console.log(response),
-    (error) => console.log(error)
-  );
-}
+//   this.calendarService.storeEvents(this.EventTray).subscribe(
+//     (response) => console.log(response),
+//     (error) => console.log(error)
+//   );
+// }
 
 rerender(){ 
   this.ucCalendar.fullCalendar('removeEvents');
-  this.EventTray.forEach(el => {
+  this.privateTray.forEach(el => {
     this.ucCalendar.fullCalendar('renderEvent', el); 
   });
   this.ucCalendar.fullCalendar('rerenderEvents');
@@ -113,17 +127,36 @@ rerender(){
 
 
 onGet(){
-  this.calendarService.getEvents()
-  .subscribe(
-    // outputs the object array and places it into the array
-   (Events: any[]) => {
-     this.EventTray = Events;
-    //  
-     console.log(this.EventTray);
-    },
-    //  Gets the response and turns it into json data
-    (error) => console.log(error),
+  // this.calendarService.getEvents()
+  // .subscribe(
+  //   // outputs the object array and places it into the array
+  //  (Events: any[]) => {
+  //    this.EventTray = Events;
+  //   //  
+  //    console.log(this.EventTray);
+  //   },
+  //   //  Gets the response and turns it into json data
+  //   (error) => console.log(error),
+  // );
+
+  const ref = this.db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName)).snapshotChanges().pipe(
+    map(changes =>
+      changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+    )
   );
+  // const ref = this.db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName)).valueChanges();
+  ref.subscribe(
+    (Events: any[]) => {
+      this.privateTray = Events;
+    }
+  )
+  const pub = this.db.list('events').valueChanges();
+  pub.subscribe(
+    (Events: any[]) => {
+      this.publicTray = Events;
+    }
+  )
+  console.log(this.publicTray);
 }
 
 // Child Component controls
@@ -146,9 +179,28 @@ onGet(){
       this.viewCallCalender = true;
     }else{
       this.viewCallCalender = false;
-    }   
+     console.log('here');
+     this.rerender();
+    }
   }
   logout(){
     this.authService.logout();
   }
+  pubPriv(){
+ 
+    if(!this.priv){
+      this.priv = true;
+      this.pub = false;
+      this.rerender();
+    }else if(!this.pub){
+      this.priv = false;
+      this.pub = true;
+
+      this.ucCalendar.fullCalendar('removeEvents');
+      this.publicTray.forEach(el => {
+        this.ucCalendar.fullCalendar('renderEvent', el); 
+      });
+      this.ucCalendar.fullCalendar('rerenderEvents');
+  }
+}
 }
