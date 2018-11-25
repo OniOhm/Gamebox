@@ -23,6 +23,7 @@ import { authGuard } from './auth/auth-gaurd.service';
 import { CookieService } from 'ngx-cookie-service';
 import { gameService } from './db/game.service';
 import { calenderService } from './db/calender.service';
+import {userprefencesService } from './db/userprefences.service';
 
 
 
@@ -49,7 +50,7 @@ import { calenderService } from './db/calender.service';
     AngularFireDatabaseModule,
     
   ],
-  providers: [AuthService, CookieService ,authGuard,gameService,calenderService,AngularFireDatabase],
+  providers: [AuthService, CookieService ,authGuard,gameService,calenderService,AngularFireDatabase,userprefencesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

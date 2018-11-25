@@ -5,7 +5,22 @@
             <h1 class="text_main padding">Gamebox</h1>
         </div>
         <div class="nav_spash_right">
-
+            <div class="log_box">
+                <a (click)="showFriendList()" class="text_body link_fix">Friendlist</a>
+                <p>{{friendNumber}}</p>
+            </div>
+            <div class="FriendsList" *ngIf="DropFriendlist">
+                <button class="addFriend">add Friend</button>
+                <div *ngFor="let ref of refer | async">
+                    <div class="Friend">
+                        <p class="text_body text_white">{{ref.friendsOf}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="log_box">
+                <a (click)="tryFriend()" class="text_body link_fix">notifications</a>
+                <p>{{notifcations}}</p>
+            </div>
             <div class="name_box">
                 <p class="text_body link_fix">{{UserName}}</p>
             </div>
@@ -51,6 +66,12 @@
         </div>
     </div>
 </div>
+<!-- <div class="addFriendDetail">
+    <form (ngSubmit)="addNewFriend(f)" #f="ngForm">
+        <label>Add friend</label>
+        <input type="text" name="friendName" ngModel>
+    </form>
+</div> -->
 <app-gamelist *ngIf="viewGamelist" (gameChange)="showGameslist()"></app-gamelist>
 <app-account *ngIf="viewAccount" (accountChange)="showAccount()"></app-account>
 <app-calender-create *ngIf="viewCallCalender" (eventChange)="showEvent()"></app-calender-create>

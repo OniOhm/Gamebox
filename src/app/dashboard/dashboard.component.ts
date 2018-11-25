@@ -7,9 +7,12 @@ import { Event } from '../db/Event';
 import { map } from 'rxjs/operators';
 import * as $ from 'jquery';
 import { NgForm } from '@angular/forms';
+import { userPref } from '../userPrefs';
 
 import { AngularFireDatabase,AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
+import { userprefencesService } from '../db/userprefences.service';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,15 +26,19 @@ export class DashboardComponent implements OnInit {
   eventDescription: string;
   eventStart: string;
   UserName: string;
-  editEvents: Observable<any[]>;
   viewAccount: boolean = false;
   viewGamelist: boolean = false;
   viewCallCalender: boolean = false;
-  masterEvents: AngularFireList<any>;
   pub: boolean = false;
   priv: boolean = true;
-  constructor(private authService: AuthService,private calendarService:calenderService,private db: AngularFireDatabase) { 
-    this.masterEvents = db.list('/events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName));
+  showFriends: boolean= false;
+  notifcations: string;
+  refer: Observable<any[]>;
+  friends: any[];
+  friendNumber: string;
+  DropFriendlist: boolean = false;
+  constructor(private authService: AuthService,private calendarService:calenderService,private db: AngularFireDatabase, private userPref: userprefencesService) { 
+    // this.masterEvents = db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName));
     
   }
   
@@ -39,34 +46,26 @@ export class DashboardComponent implements OnInit {
 selectedEvent: Event = {
   title: '',
   start: '',
+  location: '',
+    gameslist: '',
   Description: '',
   key: ' '
   }
-
-// data: Event[] = [
-//   {
-//     title  : 'event1',
-//     start  : '2018-10-01',
-//     'Description': 'Dummy'
-//   },
-//   {
-//     title  : 'event2',
-//     start  : '2018-10-01',
-//     'Description': 'Dummy'
-//   },
-// ];
+  
 privateTray = [
   {
     title  : 'stuff',
     start  : '2018-10-01',
+    location: '',
+    gameslist: '',
     'Description': 'Things'
   }
 ]
-publicTray = [
+publicTray = [ ]
+prefs = [
   {
-    title  : 'stuff',
-    start  : '2018-10-01',
-    'Description': 'Things'
+    userId: '',
+    friendOf: '',
   }
 ]
 
@@ -87,10 +86,11 @@ publicTray = [
       // ToDO: explore other data sources
     };
     this.onGet();
+    this.getPref();
   }
   ngDoCheck(){
-    this.UserName = this.authService.userName;
-    
+    this.UserName = this.authService.userName; 
+    this.friendNumber = this.prefs.length.toString();
   }
 
 // Calender control
@@ -103,19 +103,6 @@ eventClick(event: any){
   console.log(this.selectedEvent.key);
 }
 
-// onSubmit(form: NgForm){
-//   this.EventTray.push({    
-//       title: form.value.title,
-//       start: form.value.start,
-//       Description: form.value.description
-//   });
-
-  
-//   this.calendarService.storeEvents(this.EventTray).subscribe(
-//     (response) => console.log(response),
-//     (error) => console.log(error)
-//   );
-// }
 
 rerender(){ 
   this.ucCalendar.fullCalendar('removeEvents');
@@ -125,38 +112,40 @@ rerender(){
   this.ucCalendar.fullCalendar('rerenderEvents');
 }
 
-
 onGet(){
-  // this.calendarService.getEvents()
-  // .subscribe(
-  //   // outputs the object array and places it into the array
-  //  (Events: any[]) => {
-  //    this.EventTray = Events;
-  //   //  
-  //    console.log(this.EventTray);
-  //   },
-  //   //  Gets the response and turns it into json data
-  //   (error) => console.log(error),
-  // );
-
   const ref = this.db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName)).snapshotChanges().pipe(
     map(changes =>
       changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
     )
   );
-  // const ref = this.db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName)).valueChanges();
   ref.subscribe(
     (Events: any[]) => {
       this.privateTray = Events;
-    }
+    },
   )
-  const pub = this.db.list('events').valueChanges();
+  const pub = this.db.object('events').valueChanges();
   pub.subscribe(
     (Events: any[]) => {
       this.publicTray = Events;
     }
+  )  
+}
+getPref(){
+  this.refer = this.db.list('friends', ref => ref.orderByChild('userId').equalTo(this.authService.userName)).snapshotChanges().pipe(
+    map(changes =>
+      changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+    )
+    
+  );
+
+  this.refer.subscribe(
+    (Events: any[]) => {
+      this.prefs = Events;
+    },
   )
-  console.log(this.publicTray);
+  
+  console.log(this.prefs);
+  this.showFriends = true;
 }
 
 // Child Component controls
@@ -183,11 +172,18 @@ onGet(){
      this.rerender();
     }
   }
+  showFriendList(){
+    if(this.DropFriendlist){
+      this.DropFriendlist = false;
+    }else{
+      this.DropFriendlist = true;
+    }
+  }
   logout(){
     this.authService.logout();
   }
+  // Switch between a public calender and a private
   pubPriv(){
- 
     if(!this.priv){
       this.priv = true;
       this.pub = false;
@@ -202,5 +198,10 @@ onGet(){
       });
       this.ucCalendar.fullCalendar('rerenderEvents');
   }
+ 
 }
+tryFriend(){
+  this.userPref.pushFriend(this.UserName,"something");
+}
+
 }

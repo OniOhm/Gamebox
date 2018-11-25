@@ -1,11 +1,13 @@
 <div class="overLay">
     <div class="container_content">
         <div class="container_title">
-            <h1 class="text_main text_white">Create Event</h1>
+            <h1 class="text_main text_white">My Events</h1>
+            <h2 class="text_body detailStyle text_white" (click)="detailChangeDetail()">New</h2>
+            <h2 class="text_body detailStyle text_white" (click)="detailChangeEdit()">Edit</h2>
             <img src="../assets/Asset 3.svg" (click)="hideEvent()" class="img_close">
         </div>
         <div class="event_context">
-            <div class="column_input text_body text_white">
+            <div class="column_input text_body text_white" *ngIf="showNewEvent">
                 <form #f="ngForm" (ngSubmit)="onSubmit(f)">
                     <div class="input_format">
                         <label name="title">Name of event</label>
@@ -17,24 +19,34 @@
                     </div>
                     <div class="input_format">
                         <!-- TODO: Change back to Location -->
+                        <label name="description">Location</label>
+                        <input type="text" name="location" ngModel>
+                    </div>
+                    <div>
                         <label name="description">description</label>
-                        <input type="text" name="description" ngModel>
+                        <textarea name="description" ngModel></textarea>
+                    </div>
+                    <div class="gamesPlayed" *ngFor="let game of snapGames | async ">
+                        <div class="gameselect" (click)="addgame(game)">
+                            <h3 class="text_body">{{game.GameName}}</h3>
+                        </div>
                     </div>
                     <button class="btn_align text_main text_white">Create</button>
                 </form>
             </div>
-            <!-- <div class="column_area"> -->
-            <!-- <form>
-                    <div class="input_format">
-                        <label class="text_main text_white label_big">Games</label>
-                        <textarea rows="10" cols="50"></textarea>
+            <div class="event_main">
+
+                <div *ngFor="let event of Events | async">
+                    <div class="event" (click)="evenSelect(event)">
+                        <h1 class="text_main text_white">{{event.title}}</h1>
+                        <h2>{{event.start}}</h2>
                     </div>
-                    <div class="input_format">
-                        <label class="text_main text_white label_big">Info</label>
-                        <textarea rows="10" cols="50"></textarea>
-                    </div>
-                </form> -->
-            <!-- </div> -->
+                </div>
+                <div class="EventData">
+
+                </div>
+            </div>
         </div>
+
     </div>
 </div>

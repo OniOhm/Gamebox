@@ -52,7 +52,8 @@
 .event_context {
     width: 100%;
     height: 100%;
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
 }
 
 .input_format {
@@ -74,4 +75,24 @@
 
 .img_close {
     width: 2em;
+}
+
+.gameselect {
+    width: 100%;
+    height: 2em;
+    background-color: #4F345A;
+}
+
+.gameselect:hover {
+    background-color: #29ABE2;
+    transition: 0.3s;
+}
+
+.gameselect:focus {
+    background-color: #4F345A;
+}
+
+.event {
+    width: 100%;
+    background-color: #29ABE2;
 }
