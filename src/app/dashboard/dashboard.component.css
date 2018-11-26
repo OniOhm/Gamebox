@@ -37,6 +37,19 @@
     box-shadow: 0px 0px 3px black;
 }
 
+.container_overlay {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 11;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .inline_calender_controls {
     display: flex;
     width: 100%;
@@ -110,7 +123,6 @@
 
 .log_box {
     background-color: #662D91;
-    width: 5em;
     height: 50%;
     margin-left: 5px;
     padding: 0;
@@ -261,6 +273,19 @@ input:checked+.slider:before {
     box-shadow: 0px 2px 3px;
 }
 
+.notifcations_dropdown {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    align-items: center;
+    width: 24em;
+    height: 10em;
+    background-color: #4F345A;
+    z-index: 30;
+    box-shadow: 0px 2px 3px;
+    top: 8%;
+}
+
 .Friend {
     display: flex;
     background-color: #662D91;
@@ -280,4 +305,54 @@ input:checked+.slider:before {
 
 .friendHolder {
     width: 10em;
+}
+
+.container_friend_Detail {
+    width: 55%;
+    height: 30em;
+    z-index: 12;
+    background-color: #4F345A;
+}
+
+.container_title {
+    width: 95%;
+    height: 5em;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.notification {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #662D91;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin-left: 3px;
+    flex-direction: column;
+}
+
+.notification:hover {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #29ABE2;
+}
+
+.notificationHolder {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    flex-direction: column;
+}
+
+.noti_info {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
 }

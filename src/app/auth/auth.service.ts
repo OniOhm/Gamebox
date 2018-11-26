@@ -49,7 +49,7 @@ export class AuthService{
                 
                 (token: string) => this.token = token,
             )
-            this.userP.prefCheck(result.user.email),
+            
             this.userName = result.user.email;
             this.router.navigate(['/Dashboard']);
             console.log(this.token);

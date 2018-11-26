@@ -10,16 +10,43 @@
                 <p>{{friendNumber}}</p>
             </div>
             <div class="FriendsList" *ngIf="DropFriendlist">
-                <button class="addFriend">add Friend</button>
+                <button class="addFriend" (click)="toggleAddFriend()">add Friend</button>
                 <div *ngFor="let ref of refer | async">
                     <div class="Friend">
-                        <p class="text_body text_white">{{ref.friendsOf}}</p>
+                        <p class="text_body text_white">{{ref.friendOf}}</p>
                     </div>
                 </div>
             </div>
             <div class="log_box">
-                <a (click)="tryFriend()" class="text_body link_fix">notifications</a>
-                <p>{{notifcations}}</p>
+                <a (click)="toggleNotification()" class="text_body link_fix">notifications</a>
+                <p>{{notiNumber}}</p>
+                <div class="notifcations_dropdown" *ngIf="DropNotification">
+                    <button (click)="addNoti()">Push</button>
+                    <div class="notificationHolder">
+                        <div *ngFor="let note of notificationList | async">
+                            <div class="notification">
+                                <div class="noti_info">
+                                    <p class="text_body text_white">{{note.type}}</p>
+                                    <p class="text_body text_white">From: {{note.from}}</p>
+                                </div>
+
+                                <div *ngIf="note.type == 'request'">
+                                    <button (click)="acceptFriend(note.key,note.from,note.userId)">accept</button>
+                                    <button (click)="declineFriend(note.key,note.from,note.userId)">Decline</button>
+                                </div>
+                                <div *ngIf="note.type == 'email'">
+                                    <p>A date</p>
+                                </div>
+                                <div *ngIf="note.type == 'Friend declined'" (click)="deleteNoti(note.key)">
+                                    <p>{{note.from}} has declined your request</p>
+                                </div>
+                                <div *ngIf="note.type == 'Friend Accepted'" (click)="deleteNoti(note.key)">
+                                    <p>{{note.from}} has accepted your request</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="name_box">
                 <p class="text_body link_fix">{{UserName}}</p>
@@ -72,6 +99,17 @@
         <input type="text" name="friendName" ngModel>
     </form>
 </div> -->
+<div class="container_overlay" *ngIf="addFriend">
+    <div class="container_friend_Detail">
+        <div class="container_title">
+            <img src="../assets/Asset 3.svg" (click)="toggleAddFriend()" alt="" class="img_close">
+            <form (ngSubmit)="addFriendNoti(friend)" #friend="ngForm">
+                <input type="text" name="user" class="bar_bar" ngModel>
+                <button class="btn_blue">Add Friend!</button>
+            </form>
+        </div>
+    </div>
+</div>
 <app-gamelist *ngIf="viewGamelist" (gameChange)="showGameslist()"></app-gamelist>
 <app-account *ngIf="viewAccount" (accountChange)="showAccount()"></app-account>
 <app-calender-create *ngIf="viewCallCalender" (eventChange)="showEvent()"></app-calender-create>

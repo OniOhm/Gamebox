@@ -12,7 +12,7 @@ import { userPref } from '../userPrefs';
 import { AngularFireDatabase,AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { userprefencesService } from '../db/userprefences.service';
-import { TouchSequence } from 'selenium-webdriver';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -29,11 +29,14 @@ export class DashboardComponent implements OnInit {
   viewAccount: boolean = false;
   viewGamelist: boolean = false;
   viewCallCalender: boolean = false;
+  addFriend: boolean = false;
   pub: boolean = false;
   priv: boolean = true;
   showFriends: boolean= false;
   notifcations: string;
   refer: Observable<any[]>;
+  notificationList: Observable<any[]>;
+  DropNotification: boolean = false;
   friends: any[];
   friendNumber: string;
   DropFriendlist: boolean = false;
@@ -41,7 +44,7 @@ export class DashboardComponent implements OnInit {
     // this.masterEvents = db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName));
     
   }
-  
+  notiNumber = ''; 
   // Event holders
 selectedEvent: Event = {
   title: '',
@@ -68,6 +71,13 @@ prefs = [
     friendOf: '',
   }
 ]
+notifcationTray = [
+  {
+    type: 'email',
+        startDate: '',
+        userId: ''
+  }
+]
 
   ngOnInit() {
     this.calendarOptions = {
@@ -87,10 +97,11 @@ prefs = [
     };
     this.onGet();
     this.getPref();
+    this.getNoti();
   }
   ngDoCheck(){
     this.UserName = this.authService.userName; 
-    this.friendNumber = this.prefs.length.toString();
+    this.friendNumber = this.prefs.length.toString(); 
   }
 
 // Calender control
@@ -134,20 +145,32 @@ getPref(){
   this.refer = this.db.list('friends', ref => ref.orderByChild('userId').equalTo(this.authService.userName)).snapshotChanges().pipe(
     map(changes =>
       changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-    )
-    
+    ) 
   );
 
   this.refer.subscribe(
-    (Events: any[]) => {
-      this.prefs = Events;
+    (friends: any[]) => {
+      this.prefs = friends;
     },
   )
   
   console.log(this.prefs);
   this.showFriends = true;
 }
-
+getNoti(){
+this.notificationList = this.db.list('notifications', ref => ref.orderByChild('userId').equalTo(this.authService.userName)).snapshotChanges().pipe(
+  map(changes =>
+    changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+  )
+  );
+    this.notificationList.subscribe(
+      (notifcations: any[]) => {
+        this.notifcationTray = notifcations;
+        this.notiNumber = notifcations.length.toString();
+      }
+    )
+    console.log(this.notiNumber);
+}
 // Child Component controls
   showAccount(){
     if(!this.viewAccount){
@@ -179,9 +202,26 @@ getPref(){
       this.DropFriendlist = true;
     }
   }
+  toggleAddFriend(){
+    if(this.addFriend){
+      this.addFriend = false;
+    }else{
+      this.addFriend = true;
+      this.showFriendList();
+    }
+  }
+  toggleNotification(){
+    if(this.DropNotification){
+      this.DropNotification = false;
+    }else{
+      this.DropNotification = true;
+    }
+  }
+  // Log user out and clears token
   logout(){
     this.authService.logout();
   }
+
   // Switch between a public calender and a private
   pubPriv(){
     if(!this.priv){
@@ -203,5 +243,33 @@ getPref(){
 tryFriend(){
   this.userPref.pushFriend(this.UserName,"something");
 }
+addFriendNoti(noti: NgForm){
+  this.userPref.pushFriendNotification(this.UserName,noti.value.user);
+  this.toggleAddFriend();
+}
 
+// Add a friend function and decline a friend function
+acceptFriend(key:string,sender:string,reciever:string){
+const ref = this.db.list('/friends');
+
+ref.push({
+  friendOf: reciever,
+  userId: sender
+});
+ref.push({
+  friendOf: sender,
+  userId: reciever
+});
+this.userPref.pushNewFriendNotification(sender, reciever);
+const noti = this.db.list('/notifications').remove(key);
+}
+
+declineFriend(key: string,reciever:string,sender:string){
+  this.userPref.pushDeclineFriendNotification(sender,reciever);
+ const ref = this.db.list('/notifications').remove(key);
+
+}
+deleteNoti(key: string){
+  const ref = this.db.list('/notifications').remove(key);
+}
 }

@@ -7,6 +7,8 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Game } from '../gameTemp';
+import { userPref } from '../userPrefs';
+import { userprefencesService } from '../db/userprefences.service';
 
 @Component({
   selector: 'app-calender-create',
@@ -16,7 +18,7 @@ import { Game } from '../gameTemp';
 export class CalenderCreateComponent implements OnInit {
   snapGames: Observable<any[]>;
   Events: Observable<any[]>;
-  showNewEvent: boolean = false;
+  showNewEvent: boolean = true;
   EventTray = [
     {
       title  : '',
@@ -30,7 +32,7 @@ export class CalenderCreateComponent implements OnInit {
 
   gamePlayed = 'games that will be at event:';
   @Output() eventChange = new EventEmitter<boolean>();
-  constructor(private calendarService: calenderService, private authservice: AuthService, private db: AngularFireDatabase) {
+  constructor(private calendarService: calenderService, private authservice: AuthService,private noti: userprefencesService, private db: AngularFireDatabase) {
     // this.eventGames = db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authservice.userName));
     this.Events = db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authservice.userName)).snapshotChanges().pipe(
       map(changes =>
@@ -62,6 +64,7 @@ export class CalenderCreateComponent implements OnInit {
         Description: form.value.description,
         userId: this.authservice.userName
     });
+    this.noti.pushEventToFriends(this.authservice.userName,form.value.start);
     this.hideEvent();
   }
   addgame(game: Game){
