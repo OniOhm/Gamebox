@@ -116,8 +116,11 @@ export class LogSignComponent implements OnInit {
   googleLog(){
     this.authservice.logInWithGoogle();
   }
-  githubLog(){
-    this.authservice.logInWithGithub();
+  // githubLog(){
+  //   this.authservice.logInWithGithub();
+  // }
+  facebookLog(){
+    this.authservice.logInWithFacebook();
   }
   
 

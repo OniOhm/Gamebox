@@ -222,3 +222,8 @@
 .detail_label {
     background-color: #662D91;
 }
+
+.btn_compare:hover {
+    border-bottom: solid #29ABE2;
+    transition: 0.7s;
+}

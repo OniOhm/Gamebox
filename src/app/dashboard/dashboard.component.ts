@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit {
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
   eventTitle: string;
   eventDescription: string;
+  eventLocation: string;
+  Creator: string;
   eventStart: string;
   UserName: string;
   viewAccount: boolean = false;
@@ -38,13 +40,16 @@ export class DashboardComponent implements OnInit {
   notificationList: Observable<any[]>;
   DropNotification: boolean = false;
   friends: any[];
+  friendsEvents: any[];
+  friendObserve: Observable<any[]>;
   friendNumber: string;
   DropFriendlist: boolean = false;
+  notiNumber = ''; 
   constructor(private authService: AuthService,private calendarService:calenderService,private db: AngularFireDatabase, private userPref: userprefencesService) { 
-    // this.masterEvents = db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName));
+    const d = db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName));
     
   }
-  notiNumber = ''; 
+ 
   // Event holders
 selectedEvent: Event = {
   title: '',
@@ -52,24 +57,26 @@ selectedEvent: Event = {
   location: '',
     gameslist: '',
   Description: '',
-  key: ' '
+  key: ' ',
+  userId: ''
   }
   
-privateTray = [
+privateTray = [];
+FriendTray = [
+
+];
+publicTray = [
   {
     title  : 'stuff',
     start  : '2018-10-01',
     location: '',
     gameslist: '',
-    'Description': 'Things'
+    'Description': 'Things',
+    userId: ''
   }
-]
-publicTray = [ ]
+ ]
 prefs = [
-  {
-    userId: '',
-    friendOf: '',
-  }
+
 ]
 notifcationTray = [
   {
@@ -92,12 +99,15 @@ notifcationTray = [
       events: this.privateTray,
       eventSources: [
         
-      ]
+      ],
       // ToDO: explore other data sources
+      eventColor: '#29ABE2'
     };
-    this.onGet();
-    this.getPref();
+    this.getPrivate();
+    this.getPublic();
+    this.getFriends();
     this.getNoti();
+   
   }
   ngDoCheck(){
     this.UserName = this.authService.userName; 
@@ -111,19 +121,33 @@ eventClick(event: any){
   this.eventTitle = event.event.title;
   this.eventStart = event.event.start._i;
   this.eventDescription = event.event.Description;
+  this.Creator = event.event.userId;
+  this.eventLocation = event.event.location;
   console.log(this.selectedEvent.key);
 }
 
-
-rerender(){ 
+// removes events from fullcalender
+// performs for each fucntion on privateTray array and renders each event in tray
+// rerenders fullcalender
+rerender(){
+  if(this.priv){
   this.ucCalendar.fullCalendar('removeEvents');
   this.privateTray.forEach(el => {
     this.ucCalendar.fullCalendar('renderEvent', el); 
   });
   this.ucCalendar.fullCalendar('rerenderEvents');
+  }else{
+    this.ucCalendar.fullCalendar('removeEvents');
+    this.FriendTray.forEach(el => {
+      this.ucCalendar.fullCalendar('renderEvent', el); 
+    });
+    this.ucCalendar.fullCalendar('rerenderEvents');
+  }
 }
-
-onGet(){
+// Connects to the db and retireves entries from the events table
+// Assigns the pub variable and assigns it to the db query results
+// subscribes to the observable refer and pushes results into the publicTray array
+getPrivate(){
   const ref = this.db.list('events' , ref => ref.orderByChild('userId').equalTo(this.authService.userName)).snapshotChanges().pipe(
     map(changes =>
       changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
@@ -134,29 +158,44 @@ onGet(){
       this.privateTray = Events;
     },
   )
-  const pub = this.db.object('events').valueChanges();
+}
+// Connects to the db and retireves entries from the events table
+// Assigns the pub variable and assigns it to the db query results
+// subscribes to the observable refer and pushes results into the publicTray array
+getPublic(){
+  const pub = this.db.list('events').snapshotChanges().pipe(
+    map(changes =>
+      changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+    )
+  );
   pub.subscribe(
     (Events: any[]) => {
       this.publicTray = Events;
     }
-  )  
+  )
+  console.log(this.publicTray);  
 }
-getPref(){
+// Connects to the db and retireves entries from the friends table
+// Assigns the refer observable  to the db query results
+// subscribes to the observable refer and pushes results into the prefs array
+getFriends(){
   this.refer = this.db.list('friends', ref => ref.orderByChild('userId').equalTo(this.authService.userName)).snapshotChanges().pipe(
     map(changes =>
       changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
     ) 
   );
-
   this.refer.subscribe(
     (friends: any[]) => {
       this.prefs = friends;
     },
   )
-  
   console.log(this.prefs);
   this.showFriends = true;
 }
+// Connects to the db and retrieves the notifications table
+// Assigns the observable notificaitonList to db results
+// subscribes to the observable and places results into notificationTray[]
+// Records length of recieved array
 getNoti(){
 this.notificationList = this.db.list('notifications', ref => ref.orderByChild('userId').equalTo(this.authService.userName)).snapshotChanges().pipe(
   map(changes =>
@@ -191,7 +230,6 @@ this.notificationList = this.db.list('notifications', ref => ref.orderByChild('u
       this.viewCallCalender = true;
     }else{
       this.viewCallCalender = false;
-     console.log('here');
      this.rerender();
     }
   }
@@ -227,31 +265,32 @@ this.notificationList = this.db.list('notifications', ref => ref.orderByChild('u
     if(!this.priv){
       this.priv = true;
       this.pub = false;
-      this.rerender();
     }else if(!this.pub){
       this.priv = false;
       this.pub = true;
-
-      this.ucCalendar.fullCalendar('removeEvents');
-      this.publicTray.forEach(el => {
-        this.ucCalendar.fullCalendar('renderEvent', el); 
-      });
-      this.ucCalendar.fullCalendar('rerenderEvents');
+      console.log(this.publicTray);
+      this.getFriendsEvents();
+      
   }
- 
+  
 }
-tryFriend(){
-  this.userPref.pushFriend(this.UserName,"something");
+renderEvents(){
+  if(this.priv){
+    this.rerender();
+  }else{
+    this.renderPublic();
+  }
 }
 addFriendNoti(noti: NgForm){
   this.userPref.pushFriendNotification(this.UserName,noti.value.user);
   this.toggleAddFriend();
 }
 
-// Add a friend function and decline a friend function
+// Accepts the friend request from sender and pushes an two friend objects into the friend table
+// calls the pushNewFriendNotification method from the userprefences service with the sender and reciver
+// as perameters 
 acceptFriend(key:string,sender:string,reciever:string){
 const ref = this.db.list('/friends');
-
 ref.push({
   friendOf: reciever,
   userId: sender
@@ -264,12 +303,55 @@ this.userPref.pushNewFriendNotification(sender, reciever);
 const noti = this.db.list('/notifications').remove(key);
 }
 
+// A method that removes the notification from the list based on its firebase key
+// It also calles pushDeclineFriendNotification from the userprefences service
 declineFriend(key: string,reciever:string,sender:string){
   this.userPref.pushDeclineFriendNotification(sender,reciever);
  const ref = this.db.list('/notifications').remove(key);
 
 }
+// Removes a notification in the list based on its firebase key
 deleteNoti(key: string){
   const ref = this.db.list('/notifications').remove(key);
+}
+
+
+// Gets friend events from event table and pushes each of their events into a single array
+// This array is then assigned to publicTray[]
+getFriendsEvents(){
+  this.FriendTray= [];
+  const holder = this.prefs;
+  const events = this.publicTray;
+  console.log(this.publicTray);
+  for(var i = 0;i < holder.length;i++){
+    const dummy = events.filter(events => events.userId == this.prefs[i].friendOf);
+    for(var j = 0; j < dummy.length; j++){
+      this.FriendTray.push(dummy[j]);
+      // console.log(dummy[j]);
+    }
+    // console.log(dummy[i].userId);
+  }
+  // // this.FriendTray = curatedList;
+  console.log(this.FriendTray);
+
+  // for(var i = 1;i < this.prefs.length;i++){
+  //   const dummy = holder.filter(events => events.userId = this.prefs[i].friendOf);
+  //   for(var j = 0; j < dummy.length; j++){
+  //     this.FriendTray.push(dummy[j]);
+  //     console.log(dummy[j]);
+  //   }
+  // }  
+     
+}
+  
+
+
+
+renderPublic(){
+  this.ucCalendar.fullCalendar('removeEvents');
+  this.FriendTray.forEach(el => {
+    this.ucCalendar.fullCalendar('renderEvent', el); 
+  });
+  this.ucCalendar.fullCalendar('rerenderEvents');
 }
 }

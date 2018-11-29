@@ -34,7 +34,6 @@
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
 }
 
 .input_password {
@@ -51,11 +50,9 @@
     justify-content: center;
 }
 
-.account_input {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+.account_metrics {
+    grid-column: 2;
+    grid-row: 1;
 }
 
 .img_size {
@@ -96,4 +93,47 @@
 
 .form-group {
     display: block;
+}
+
+.account_general {}
+
+.account_main {
+    width: 100%;
+    height: 100%;
+    display: none;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 50% 50%;
+}
+
+.friendHeader:hover {
+    border-bottom: solid #29ABE2;
+}
+
+.account_friend {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 50% 50%;
+}
+
+.btn_delete {
+    border-style: none;
+    background-color: #662D91;
+    color: #ffffff;
+    padding: 10px;
+    width: 10em;
+    padding: 5px;
+}
+
+.btn_delete:hover {
+    background-color: #ed4242;
+}
+
+.friend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
 }

@@ -2,38 +2,32 @@
     <div id="container_content">
         <div class="container_title">
             <h1 class="text_main text_white"> My Account</h1>
+            <h1 class=" friendHeader text_main text_white" (click)="getFriends()">Friends</h1>
             <img src="../assets/Asset 3.svg" (click)="accountOff()" class="img_close">
         </div>
         <div class="container_input">
-            <div class="account_graphic">
-                <img src="../assets/Asset 11.svg" class="img_size">
-                <h1 class="text_main text_white align">{{accountName}}</h1>
+            <div class="account_main">
+                <div class="account_general">
+                    <img src="../assets/Asset 11.svg" class="img_size">
+                    <h1 class="text_main text_white align">{{accountName}}</h1>
+                </div>
+                <div class="account_metrics">
+                    <h1 class="text_main text_white">Metrics</h1>
+                    <p class="text_main text_white">Games Added:<span class="text_body">{{games}}</span></p>
+                    <p class="text_main text_white">Events Created:<span class="text_body">{{Event}}</span></p>
+                    <p class="text_main text_white">Friends:<span class="text_body">{{Event}}</span></p>
+                </div>
             </div>
-            <div class="account_input">
-                <h1 class="text_main text_white">Metrics</h1>
-                <p class="text_main text_white">Games Added:<span class="text_body">{{games}}</span></p>
-                <p class="text_main text_white">Events Created:<span class="text_body">{{Event}}</span></p>
-                <!-- <div class="container_password">
-                    <h1 class="text_main text_white">change Password</h1>
-                    <div class="input_password">
-                        <form>
-                            <div class="form-group">
-                                <label for="old_pwd" class="text_white text_body">Old password</label>
-                                <input name="old_pwd" type="password">
-                            </div>
-                            <div class="form-group">
-                                <label for="new_pwd" class="text_white text_body">New password</label>
-                                <input name="new_pwd" type="password">
-                            </div>
-                            <button class="btn_change text_main">Change</button>
-                        </form>
+            <div class="account_friend">
+                <h1>friends</h1>
+                <div class="friends">
+                    <div *ngFor="let friend of FriendList | async">
+                        <div class="friend">
+                            <h3 class="text_main text_white">{{friend.friendOf}}</h3>
+                            <button (click)="removeFriend(friend.key,friend.friendOf)" class="btn_delete">Delete</button>
+                        </div>
                     </div>
                 </div>
-                <div class="container_gameClear">
-                    <h1 class="text_main text_white">Clear GamesList</h1>
-                    <p class="right_margin text_white text_body">This will completely empty your gamelist. You have been warned.</p>
-                    <button class="text_main btn_purge">Purge!!</button>
-                </div> -->
             </div>
         </div>
     </div>

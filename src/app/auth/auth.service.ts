@@ -57,9 +57,25 @@ export class AuthService{
             console.log(error);
         })
     }
-    logInWithGithub(){
-        const githubProvider = new firebase.auth.GithubAuthProvider();
-        firebase.auth().signInWithPopup(githubProvider).then((result) => {
+    // logInWithGithub(){
+    //     const githubProvider = new firebase.auth.GithubAuthProvider();
+    //     firebase.auth().signInWithPopup(githubProvider).then((result) => {
+            
+    //         firebase.auth().currentUser.getIdToken()
+    //         .then(
+    //             (token: string) => this.token = token
+    //         )
+    //         console.log(result);
+    //         this.userName = result.user.email;
+    //         this.router.navigate(['/Dashboard']);
+    //         console.log(this.token);
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
+    logInWithFacebook(){
+        const facebookProvider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth().signInWithPopup(facebookProvider).then((result) => {
             
             firebase.auth().currentUser.getIdToken()
             .then(

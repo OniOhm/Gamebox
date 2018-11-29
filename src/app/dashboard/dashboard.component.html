@@ -7,7 +7,7 @@
         <div class="nav_spash_right">
             <div class="log_box">
                 <a (click)="showFriendList()" class="text_body link_fix">Friendlist</a>
-                <p>{{friendNumber}}</p>
+                <p class="text_body">{{friendNumber}}</p>
             </div>
             <div class="FriendsList" *ngIf="DropFriendlist">
                 <button class="addFriend" (click)="toggleAddFriend()">add Friend</button>
@@ -19,9 +19,8 @@
             </div>
             <div class="log_box">
                 <a (click)="toggleNotification()" class="text_body link_fix">notifications</a>
-                <p>{{notiNumber}}</p>
+                <p class="text_body">{{notiNumber}}</p>
                 <div class="notifcations_dropdown" *ngIf="DropNotification">
-                    <button (click)="addNoti()">Push</button>
                     <div class="notificationHolder">
                         <div *ngFor="let note of notificationList | async">
                             <div class="notification">
@@ -29,19 +28,27 @@
                                     <p class="text_body text_white">{{note.type}}</p>
                                     <p class="text_body text_white">From: {{note.from}}</p>
                                 </div>
-
-                                <div *ngIf="note.type == 'request'">
+                                <div *ngIf="note.type == 'Friend request'">
                                     <button (click)="acceptFriend(note.key,note.from,note.userId)">accept</button>
                                     <button (click)="declineFriend(note.key,note.from,note.userId)">Decline</button>
-                                </div>
-                                <div *ngIf="note.type == 'email'">
-                                    <p>A date</p>
                                 </div>
                                 <div *ngIf="note.type == 'Friend declined'" (click)="deleteNoti(note.key)">
                                     <p>{{note.from}} has declined your request</p>
                                 </div>
                                 <div *ngIf="note.type == 'Friend Accepted'" (click)="deleteNoti(note.key)">
                                     <p>{{note.from}} has accepted your request</p>
+                                </div>
+                                <div *ngIf="note.type == 'Event updated'" (click)="deleteNoti(note.key)">
+                                    <p>{{note.title}} has been updated</p>
+                                </div>
+                                <div *ngIf="note.type == 'Event deleted'" (click)="deleteNoti(note.key)">
+                                    <p>{{note.title}} has been canceled</p>
+                                </div>
+                                <div *ngIf="note.type == 'New event'" (click)="deleteNoti(note.key)">
+                                    <p>{{note.title}}</p>
+                                </div>
+                                <div *ngIf="note.type == 'Friend removed'" (click)="deleteNoti(note.key)">
+                                    <p>{{note.from}} has stop being your friend :(</p>
                                 </div>
                             </div>
                         </div>
@@ -70,18 +77,18 @@
         </div>
         <div class="container_calender">
             <div class="inline_calender_controls">
-                <button (click)="rerender()">Refresh</button>
+                <button (click)="rerender()" class="btn_refresh text_body text_white">Refresh</button>
                 <div class="calender-switch">
-                    <span class="text_body">private</span>
+                    <span class="text_body text_white">private</span>
                     <label class="switch">
                         <input type="checkbox">
                         <span class="slider" (click)="pubPriv()"></span>
                 </label>
-                    <span class="text_body">public</span>
+                    <span class="text_body text_white">public</span>
                 </div>
             </div>
             <div *ngIf="calendarOptions">
-                <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)" (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
+                <ng-fullcalendar class="text_body" #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)" (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
             </div>
         </div>
     </div>
@@ -90,15 +97,11 @@
             <p class="text_body EventTitle">Event title : {{eventTitle}}</p>
             <p class="text_body EventDate">Event date : {{eventStart}}</p>
             <p class="text_body EventDescript">Event description : {{eventDescription}}</p>
+            <p class="text_body EventLocation">Event Location : {{eventLocation}}</p>
+            <p class="text_body EventCreator">Event By: {{Creator}}</p>
         </div>
     </div>
 </div>
-<!-- <div class="addFriendDetail">
-    <form (ngSubmit)="addNewFriend(f)" #f="ngForm">
-        <label>Add friend</label>
-        <input type="text" name="friendName" ngModel>
-    </form>
-</div> -->
 <div class="container_overlay" *ngIf="addFriend">
     <div class="container_friend_Detail">
         <div class="container_title">
