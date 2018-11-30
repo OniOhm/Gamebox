@@ -40,22 +40,22 @@
                                     <button class="btn_friend decline text_white" (click)="declineFriend(note.key,note.from,note.userId)">Decline</button>
                                 </div>
                                 <div *ngIf="note.type == 'Friend declined'" (click)="deleteNoti(note.key)">
-                                    <p class="text_body text_white">{{note.from}} has declined your request</p>
+                                    <p class="text_body text_white shorten">{{note.from}} has declined your request</p>
                                 </div>
                                 <div *ngIf="note.type == 'Friend Accepted'" (click)="deleteNoti(note.key)">
-                                    <p class="text_body text_white">{{note.from}} has accepted your request</p>
+                                    <p class="text_body text_white shorten">{{note.from}} has accepted your request</p>
                                 </div>
                                 <div *ngIf="note.type == 'Event updated'" (click)="deleteNoti(note.key)">
-                                    <p class="text_body text_white">{{note.title}} has been updated</p>
+                                    <p class="text_body text_white shorten">{{note.title}} has been updated</p>
                                 </div>
                                 <div *ngIf="note.type == 'Event deleted'" (click)="deleteNoti(note.key)">
-                                    <p class="text_body text_white">{{note.title}} has been canceled</p>
+                                    <p class="text_body text_white shorten">{{note.title}} has been canceled</p>
                                 </div>
                                 <div *ngIf="note.type == 'New event'" (click)="deleteNoti(note.key)">
-                                    <p class="text_body text_white">{{note.title}}</p>
+                                    <p class="text_body text_white shorten">{{note.title}}</p>
                                 </div>
                                 <div *ngIf="note.type == 'Friend removed'" (click)="deleteNoti(note.key)">
-                                    <p class="text_body text_white">{{note.from}} has stop being your friend :(</p>
+                                    <p class="text_body text_white shorten">{{note.from}} has stop being your friend :(</p>
                                 </div>
                             </div>
                         </div>

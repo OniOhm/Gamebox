@@ -54,7 +54,7 @@ pushEventToFriends(sender: string,friends: any[],title: string){
             startDate: '',
             title: title,
             from: sender,
-            userId: el.friendOf
+            userId: el.userId
         });
     })
 
@@ -67,7 +67,7 @@ pushUpdatedEventToFriends(sender:string ,friends: any[],title: string){
             startDate: '',
             title: title,
             from: sender,
-            userId: el.friendOf
+            userId: el.userId
         });
     })
 }
@@ -81,7 +81,7 @@ pushDeletedEventToFriends(sender:string ,friends: any[],title: string){
             startDate: '',
             title: title,
             from: sender,
-            userId: el.friendOf
+            userId: el.userId
         });
     })
 }

@@ -57,31 +57,31 @@
             <form (ngSubmit)="editNewGame(e)" #e="ngForm" class="form-grid">
                 <div class="form-group">
                     <div class="text_main text_white detail_label"><label for="GameName" class="text_body">Name of game</label></div>
-                    <input type="text" name="GameName" [ngModel]="selectedGame.GameName">
+                    <input type="text" name="text_body GameName" [ngModel]="selectedGame.GameName">
                 </div>
                 <div class="form-group">
                     <div class="text_main text_white detail_label"><label for="GameDescript" class="text_body">Game Info</label></div>
-                    <textarea rows="15" name="GameDescript" [ngModel]="selectedGame.GameDescript"></textarea>
+                    <textarea rows="15" name="GameDescript" class="text_body" [ngModel]="selectedGame.GameDescript"></textarea>
                 </div>
                 <div class="form-group">
                     <div class="text_main text_white detail_label"><label for="additional" class="text_body">Additonal notes</label></div>
-                    <textarea rows="15" name="additional" class="additional" [ngModel]="selectedGame.additional"></textarea>
+                    <textarea rows="15" name="additional" class="text_body additional" [ngModel]="selectedGame.additional"></textarea>
                 </div>
                 <div class="form-group">
                     <div class="text_main text_white detail_label"><label for="date" class="text_body">Date Added</label></div>
-                    <input type="date" name="date" class="date" [ngModel]="selectedGame.date">
+                    <input type="date" name="date" class="text_body date" [ngModel]="selectedGame.date">
                 </div>
                 <div class="form-group">
                     <div class="text_main text_white detail_label"> <label for="rules" class="text_body">Rules</label></div>
-                    <textarea rows="15" name="rules" class="rules" [ngModel]="selectedGame.rules"></textarea>
+                    <textarea rows="15" name="rules" class="text_body rules" [ngModel]="selectedGame.rules"></textarea>
                 </div>
                 <div class="form-group">
                     <div class="text_main text_white detail_label"><label for="creator" class="text_body">Created by</label></div>
-                    <input type="text" name="creator" class="creator" [ngModel]="selectedGame.creator">
+                    <input type="text" name="creator" class="text_body creator" [ngModel]="selectedGame.creator">
                 </div>
                 <div class="form-group">
                     <div class="text_main text_white detail_label"><label for="numOfPlay" class="text_body">Number of players</label></div>
-                    <input type="text" name="numOfPlay" class="numOfPlay" [ngModel]="selectedGame.numOfPlay">
+                    <input type="text" name="numOfPlay" class="text_body numOfPlay" [ngModel]="selectedGame.numOfPlay">
                 </div>
                 <div class="container_btn">
                     <button class="btn_align text_main text_white" type="submit">Edit</button>
@@ -110,23 +110,23 @@
                     </div>
                     <div class="form-group">
                         <div class="text_main text_white detail_label"><label for="additional" class="text_body ">Additonal notes</label></div>
-                        <textarea rows="15" name="additional" class="additional" ngModel></textarea>
+                        <textarea rows="15" name="additional" class="text_body additional" ngModel></textarea>
                     </div>
                     <div class="form-group">
                         <div class="text_main text_white detail_label"><label for="date" class="text_body ">Date Added</label></div>
-                        <input type="date" name="date" class="date" ngModel>
+                        <input type="date" name="date" class="text_body date" ngModel>
                     </div>
                     <div class="form-group">
                         <div class="text_main text_white detail_label"><label for="rules" class="text_body">Rules</label></div>
-                        <textarea rows="15" name="rules" class="rules" ngModel></textarea>
+                        <textarea rows="15" name="rules" class="text_body rules" ngModel></textarea>
                     </div>
                     <div class="form-group">
                         <div class="text_main text_white detail_label"><label for="creator" class="text_body">Created by</label></div>
-                        <input type="text" name="creator" class="creator" ngModel>
+                        <input type="text" name="creator" class="text_body creator" ngModel>
                     </div>
                     <div class="form-group">
                         <div class="text_main text_white detail_label"><label for="numOfPlay" class="text_body">Number of players</label></div>
-                        <input type="text" name="numOfPlay" class="numOfPlay" ngModel>
+                        <input type="text" name="numOfPlay" class="text_body numOfPlay" ngModel>
                     </div>
                     <div class="container_btn">
                         <button class="btn_align text_main text_white" type="submit">Create</button>
