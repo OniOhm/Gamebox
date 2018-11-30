@@ -2,24 +2,25 @@
     <div id="container_content">
         <div class="container_title">
             <h1 class="text_main text_white"> My Account</h1>
-            <h1 class=" friendHeader text_main text_white" (click)="getFriends()">Friends</h1>
+            <h1 class=" friendHeader text_main text_white" (click)="accountControl('main')">Main</h1>
+            <h1 class=" friendHeader text_main text_white" (click)="accountControl('friends')">Friends</h1>
             <img src="../assets/Asset 3.svg" (click)="accountOff()" class="img_close">
         </div>
         <div class="container_input">
-            <div class="account_main">
+            <div class="account_main" *ngIf="accountMain">
                 <div class="account_general">
                     <img src="../assets/Asset 11.svg" class="img_size">
                     <h1 class="text_main text_white align">{{accountName}}</h1>
                 </div>
                 <div class="account_metrics">
                     <h1 class="text_main text_white">Metrics</h1>
-                    <p class="text_main text_white">Games Added:<span class="text_body">{{games}}</span></p>
-                    <p class="text_main text_white">Events Created:<span class="text_body">{{Event}}</span></p>
-                    <p class="text_main text_white">Friends:<span class="text_body">{{Event}}</span></p>
+                    <p class="text_main text_white">Games Added:<span class="text_body">{{gameNumber}}</span></p>
+                    <p class="text_main text_white">Events Created:<span class="text_body">{{eventNumber}}</span></p>
+                    <p class="text_main text_white">Friends:<span class="text_body">{{accountNumber}}</span></p>
                 </div>
             </div>
-            <div class="account_friend">
-                <h1>friends</h1>
+            <div class="account_friend" *ngIf="accountFriend">
+                <h1 class="text_main text_white">Friends</h1>
                 <div class="friends">
                     <div *ngFor="let friend of FriendList | async">
                         <div class="friend">

@@ -34,7 +34,7 @@
 
 .container_game_overlay {
     width: 55%;
-    height: 30em;
+    height: 70%;
     z-index: 12;
     background-color: #ffffff;
 }
@@ -53,9 +53,9 @@
 }
 
 .container_content_newGame {
-    background-color: #4F345A;
+    background-color: #ffffff;
     width: 48em;
-    height: 30em;
+    height: 70%;
     opacity: 1;
     display: flex;
     flex-direction: column;
@@ -96,9 +96,8 @@
 .game {
     background-color: #662D91;
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr; */
     grid-template-columns: 60% 40%;
-    height: 7em;
     margin: 10px;
 }
 
@@ -127,15 +126,15 @@
 }
 
 .container_input {
-    height: 20em;
+    height: 100%;
     width: 95%;
-    margin-left: 18px;
+    margin: auto;
+    overflow-y: scroll;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: 46% 46%;
-    grid-template-rows: repeat(5, 5em);
     gap: 9px;
     margin-left: 3em;
 }
@@ -168,17 +167,23 @@
 }
 
 .gameDetail {
-    width: 90%;
-    height: 100%;
+    width: 95%;
+    height: 80%;
+    display: -ms-grid;
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 20% 20% 20%;
+    -ms-grid-columns: 50% 50%;
+    /* grid-template-columns: 50% 50%; */
+    -ms-grid-rows: 20% 20% 20%;
+    /* grid-template-rows: 20% 20% 20%; */
     margin: auto;
+    overflow-y: scroll;
+    grid-gap: 10px;
 }
 
 .gameEdit {
     width: 100%;
-    height: 100%;
+    height: 39em;
+    overflow-y: scroll;
 }
 
 .deleteGame {
@@ -200,7 +205,7 @@
 }
 
 .viewGame:hover {
-    background-color: rgb(34, 143, 190);
+    background-color: #662D91;
 }
 
 .deleteGame:hover {
@@ -209,6 +214,10 @@
 
 .text {
     text-align: right;
+}
+
+.text_correct {
+    margin: 5px;
 }
 
 .gameControl {
@@ -221,6 +230,7 @@
 
 .detail_label {
     background-color: #662D91;
+    width: 100%;
 }
 
 .btn_compare:hover {

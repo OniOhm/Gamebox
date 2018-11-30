@@ -2,13 +2,13 @@ import * as firebase from 'firebase';
 
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { userprefencesService } from '../db/userprefences.service';
+
 @Injectable()
 export class AuthService{
     userName: string;
     token: string;
     
-    constructor(private router: Router, private userP: userprefencesService){
+    constructor(private router: Router){
 
     }
     signupUser(email: string,password: string){

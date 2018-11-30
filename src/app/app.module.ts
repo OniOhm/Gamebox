@@ -48,9 +48,8 @@ import {userprefencesService } from './db/userprefences.service';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    
   ],
   providers: [AuthService, CookieService ,authGuard,gameService,calenderService,AngularFireDatabase,userprefencesService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

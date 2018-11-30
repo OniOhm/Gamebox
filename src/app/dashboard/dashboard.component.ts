@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
   Creator: string;
   eventStart: string;
   UserName: string;
+  eventGames: string;
   viewAccount: boolean = false;
   viewGamelist: boolean = false;
   viewCallCalender: boolean = false;
@@ -123,6 +124,7 @@ eventClick(event: any){
   this.eventDescription = event.event.Description;
   this.Creator = event.event.userId;
   this.eventLocation = event.event.location;
+  this.eventGames = event.event.gameslist;
   console.log(this.selectedEvent.key);
 }
 
@@ -238,6 +240,7 @@ this.notificationList = this.db.list('notifications', ref => ref.orderByChild('u
       this.DropFriendlist = false;
     }else{
       this.DropFriendlist = true;
+      this.DropNotification = false;
     }
   }
   toggleAddFriend(){
@@ -245,6 +248,7 @@ this.notificationList = this.db.list('notifications', ref => ref.orderByChild('u
       this.addFriend = false;
     }else{
       this.addFriend = true;
+      
       this.showFriendList();
     }
   }
@@ -253,6 +257,7 @@ this.notificationList = this.db.list('notifications', ref => ref.orderByChild('u
       this.DropNotification = false;
     }else{
       this.DropNotification = true;
+      this.DropFriendlist = false;
     }
   }
   // Log user out and clears token

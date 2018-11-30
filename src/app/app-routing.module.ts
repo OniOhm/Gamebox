@@ -15,8 +15,7 @@ import { environment } from 'src/environments/environment';
 const appRoutes: Routes=[
   {path:'Splash' , component: SplashComponent },
   {path:'LogSign' , component: LogSignComponent},
-  // , canActivate: [authGuard]
-  {path: 'Dashboard' , component: DashboardComponent},
+  {path: 'Dashboard' , component: DashboardComponent,canActivate: [authGuard]},
   {path:'' , redirectTo:"Splash", pathMatch: 'full'},
   {path:'**' , redirectTo:"Splash",pathMatch: 'full'}
 ]

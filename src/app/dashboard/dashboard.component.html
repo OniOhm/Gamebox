@@ -5,21 +5,28 @@
             <h1 class="text_main padding">Gamebox</h1>
         </div>
         <div class="nav_spash_right">
-            <div class="log_box">
-                <a (click)="showFriendList()" class="text_body link_fix">Friendlist</a>
-                <p class="text_body">{{friendNumber}}</p>
+            <div class="name_box">
+                <p class="text_body link_fix">{{UserName}}</p>
             </div>
-            <div class="FriendsList" *ngIf="DropFriendlist">
-                <button class="addFriend" (click)="toggleAddFriend()">add Friend</button>
-                <div *ngFor="let ref of refer | async">
-                    <div class="Friend">
-                        <p class="text_body text_white">{{ref.friendOf}}</p>
+            <div class="friendlist_container">
+                <div class="log_box">
+                    <a (click)="showFriendList()" class="text_body link_fix">Friendlist</a>
+                    <p class="text_body">{{friendNumber}}</p>
+                </div>
+                <div class="FriendsList" *ngIf="DropFriendlist">
+                    <button class="addFriend text_body text_white" (click)="toggleAddFriend()">add Friend</button>
+                    <div *ngFor="let ref of refer | async">
+                        <div class="Friend">
+                            <p class="text_body text_white">{{ref.friendOf}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="log_box">
-                <a (click)="toggleNotification()" class="text_body link_fix">notifications</a>
-                <p class="text_body">{{notiNumber}}</p>
+            <div class="notification_container">
+                <div class="log_box">
+                    <a (click)="toggleNotification()" class="text_body link_fix">notifications</a>
+                    <p class="text_body">{{notiNumber}}</p>
+                </div>
                 <div class="notifcations_dropdown" *ngIf="DropNotification">
                     <div class="notificationHolder">
                         <div *ngFor="let note of notificationList | async">
@@ -29,34 +36,31 @@
                                     <p class="text_body text_white">From: {{note.from}}</p>
                                 </div>
                                 <div *ngIf="note.type == 'Friend request'">
-                                    <button (click)="acceptFriend(note.key,note.from,note.userId)">accept</button>
-                                    <button (click)="declineFriend(note.key,note.from,note.userId)">Decline</button>
+                                    <button class="btn_friend accept text_white" (click)="acceptFriend(note.key,note.from,note.userId)">accept</button>
+                                    <button class="btn_friend decline text_white" (click)="declineFriend(note.key,note.from,note.userId)">Decline</button>
                                 </div>
                                 <div *ngIf="note.type == 'Friend declined'" (click)="deleteNoti(note.key)">
-                                    <p>{{note.from}} has declined your request</p>
+                                    <p class="text_body text_white">{{note.from}} has declined your request</p>
                                 </div>
                                 <div *ngIf="note.type == 'Friend Accepted'" (click)="deleteNoti(note.key)">
-                                    <p>{{note.from}} has accepted your request</p>
+                                    <p class="text_body text_white">{{note.from}} has accepted your request</p>
                                 </div>
                                 <div *ngIf="note.type == 'Event updated'" (click)="deleteNoti(note.key)">
-                                    <p>{{note.title}} has been updated</p>
+                                    <p class="text_body text_white">{{note.title}} has been updated</p>
                                 </div>
                                 <div *ngIf="note.type == 'Event deleted'" (click)="deleteNoti(note.key)">
-                                    <p>{{note.title}} has been canceled</p>
+                                    <p class="text_body text_white">{{note.title}} has been canceled</p>
                                 </div>
                                 <div *ngIf="note.type == 'New event'" (click)="deleteNoti(note.key)">
-                                    <p>{{note.title}}</p>
+                                    <p class="text_body text_white">{{note.title}}</p>
                                 </div>
                                 <div *ngIf="note.type == 'Friend removed'" (click)="deleteNoti(note.key)">
-                                    <p>{{note.from}} has stop being your friend :(</p>
+                                    <p class="text_body text_white">{{note.from}} has stop being your friend :(</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="name_box">
-                <p class="text_body link_fix">{{UserName}}</p>
             </div>
             <div class="log_box">
                 <a (click)="logout()" class="text_body link_fix">Log-out</a>
@@ -99,17 +103,18 @@
             <p class="text_body EventDescript">Event description : {{eventDescription}}</p>
             <p class="text_body EventLocation">Event Location : {{eventLocation}}</p>
             <p class="text_body EventCreator">Event By: {{Creator}}</p>
+            <p class="text_body EventGames"> {{eventGames}}</p>
         </div>
     </div>
-</div>
+</div>e
 <div class="container_overlay" *ngIf="addFriend">
     <div class="container_friend_Detail">
         <div class="container_title">
-            <img src="../assets/Asset 3.svg" (click)="toggleAddFriend()" alt="" class="img_close">
-            <form (ngSubmit)="addFriendNoti(friend)" #friend="ngForm">
-                <input type="text" name="user" class="bar_bar" ngModel>
-                <button class="btn_blue">Add Friend!</button>
+            <form (ngSubmit)="addFriendNoti(friend)" class="friendAddBar" #friend="ngForm">
+                <input type="text" name="user" class="friendInput" ngModel>
+                <button class="btn_blue text_main">Add Friend!</button>
             </form>
+            <img src="../assets/Asset 3.svg" (click)="toggleAddFriend()" alt="" class="img_close">
         </div>
     </div>
 </div>

@@ -38,25 +38,31 @@
 }
 
 .container_title {
-    width: 95%;
+    /* width: 95%;
     height: 5em;
     display: flex;
     justify-content: space-between;
     margin-left: 5px;
     margin-right: 5px;
+    align-items: center; */
+    width: 95%;
+    height: 5em;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
     align-items: center;
 }
 
 .event_context {
     width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
 }
 
 .input_format {
     margin-top: 5px;
     margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .btn_align {
@@ -92,15 +98,22 @@
 
 .event {
     width: 100%;
-    background-color: #29ABE2;
+    background-color: #662D91;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     padding-left: 10px;
 }
 
+.event:hover {
+    background-color: #29ABE2;
+}
+
 .event_new {
-    display: block;
+    height: 100%;
+    width: 95%;
+    margin: auto;
+    overflow-y: scroll;
 }
 
 .event_main {
@@ -118,6 +131,11 @@
     background-color: #29ABE2;
 }
 
+.btn_delete_event:hover {
+    background-color: #662D91;
+    transition: 0.3s;
+}
+
 .btn_update_event {
     grid-column: 3;
     grid-row: 2;
@@ -125,9 +143,14 @@
     background-color: #29ABE2;
 }
 
+.btn_update_event:hover {
+    background-color: rgb(189, 64, 64);
+    transition: 0.3s;
+}
+
 .event_start {
-    grid-column: 1;
-    grid-row: 2;
+    grid-column: 2;
+    grid-row: 1;
 }
 
 .event_title {
@@ -135,7 +158,24 @@
     grid-row: 1;
 }
 
+.event_description {
+    grid-column: 1;
+    grid-row: 2;
+}
+
 .detailStyle:hover {
     border-bottom: solid #29ABE2;
     transition: 0.7s;
+}
+
+.gamesPlayed {
+    grid-column: 2;
+    overflow-y: scroll;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 9px;
+    width: 100%;
 }
